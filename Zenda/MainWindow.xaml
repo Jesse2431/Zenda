@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zenda"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Style="{StaticResource CustomWindowStyle}"
+        Title="MainWindow" Height="1078" Width="1920" WindowState="Maximized">
     <Grid>
-        
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Background="#FF151515" BorderThickness="1" BorderBrush="#FF3A3A3A" Name="Menu">
+                <MenuItem Header="_File" Foreground="White" Width="33" Name="MenuFile">
+                    <MenuItem Header="Open" Name="MenuFileOpen"/>
+                    <MenuItem Header="Save" Name="MenuFileSave"/>
+                    <MenuItem Header="Save As" Name="MenuFileSaveAs"/>
+                    <MenuItem Header="Close" Name="MenuFileClose"/>
+                    <MenuItem Header="Exit" Name="MenuFileExit" Click="MenuFileExitClicked"/>
+                </MenuItem>
+                <MenuItem Header="_Edit" Foreground="White" Width="33" Name="MenuEdit">
+                    <MenuItem Header="Undo" Name="MenuEditUndo"/>
+                    <MenuItem Header="Redo" Name="MenuEditRedo"/>
+                    <MenuItem Header="Cut" Name="MenuEditCut"/>
+                    <MenuItem Header="Copy" Name="MenuEditCopy"/>
+                    <MenuItem Header="Paste" Name="MenuEditPaste"/>
+                </MenuItem>
+                <MenuItem Header="_Help" Foreground="White" Width="40" Name="MenuHelp">
+                    <MenuItem Header="Info" Name="MenuHelpInfo"/>
+                    <MenuItem Header="Credits" Name="MenuHelpCredits" Click="MenuHelpCreditsClicked"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
     </Grid>
 </Window>
