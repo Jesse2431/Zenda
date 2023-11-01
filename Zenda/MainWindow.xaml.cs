@@ -19,10 +19,77 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms; // NOTE: open file dialog requires it
+using System.Drawing; // NOTE: Splash Screen requires it
+using System.Reflection; // NOTE: Splash Screen requires it
+using System.Resources; // NOTE: Splash Screen requires it
 using DSCript; // loads Fireboyd78's module
 
 namespace Zenda
 {
+	class SplashScreen : Form 
+	{
+		const int Interval = 3000; // 3 seconds
+		const string TextA = "Loading...";
+		const string TextB = "Made by Jesse and BuilderDemo7";
+		Timer splashTimer;
+        private void InitializeComponent()
+        {
+        	FormBorderStyle = FormBorderStyle.None;
+        	ClientSize = new System.Drawing.Size(600,300);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
+            this.SuspendLayout();
+        	// splash screen timer
+        	splashTimer = new Timer(); // creates the timer
+        	splashTimer.Interval = Interval; // sets the interval (in miliseconds)
+        	splashTimer.Tick += delegate { this.Close(); }; // make the window close when a second is elapsed
+        	splashTimer.Start(); // starts the timer
+        }
+		public SplashScreen() {
+			InitializeComponent(); // initalize the main (timer, client size and border)
+			
+            // the labels first...
+            // creation
+            System.Windows.Forms.Label labA = new System.Windows.Forms.Label();
+            System.Windows.Forms.Label labB = new System.Windows.Forms.Label();
+            // text
+            labA.Text = TextA;
+            labB.Text = TextB;
+            // position & size
+            labA.Location = new System.Drawing.Point(11,280);
+            labB.Location = new System.Drawing.Point(461,280);
+            labA.Size = new System.Drawing.Size(120,20);
+            labB.Size = new System.Drawing.Size(120,20);
+            // font
+            labA.Font = new Font("Calibri", 10);
+            labB.Font = new Font("Calibri", 10);
+            // color
+            labA.BackColor = System.Drawing.Color.Transparent;
+            labB.BackColor = System.Drawing.Color.Transparent;
+            labA.TransparencyKey = BackColor;
+            labB.TransparencyKey = BackColor;
+            /*
+            labA.BackColor = new Color.FromRgb(0,0,0);
+            labB.BackColor = new Color.FromRgb(0,0,0);
+            labA.ForeColor = new Color.FromRgb(255,255,255);
+            labB.ForeColor = new Color.FromRgb(255,255,255);
+            */
+            // add the labels
+            this.Controls.Add(labA);
+            this.Controls.Add(labB);
+            
+			// now, the splash screen image...
+            PictureBox spsimg = new PictureBox();            
+            spsimg.Image = System.Drawing.Image.FromFile("Images/splashscreen.png");
+            spsimg.Visible = true;
+            spsimg.Location = new System.Drawing.Point(0,0);
+            spsimg.SizeMode = PictureBoxSizeMode.StretchImage;
+            // set width and height
+            spsimg.Width = ClientSize.Width;
+            spsimg.Height = ClientSize.Height;
+            this.CenterToScreen(); // center the splash screen
+            this.Controls.Add(spsimg); // add the image
+		}
+	}
     public partial class MainWindow : Window
     {
     	public const string programTitle = "Zenda"; // used when opening/closing a file
@@ -30,6 +97,8 @@ namespace Zenda
     	public FileStream file;
         public MainWindow()
         {
+        	SplashScreen spscreen = new SplashScreen();
+        	System.Windows.Forms.Application.Run(spscreen);
             InitializeComponent();
         }
 
@@ -108,6 +177,7 @@ namespace Zenda
         
 		void MenuFileClose_Click(object sender, RoutedEventArgs e)
 		{
+			// If a file is open, close it
 			if (file!=null) {
     			this.Title = programTitleNF;
      			file.Close();

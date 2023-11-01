@@ -61,6 +61,7 @@
     <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -188,12 +189,14 @@
     <None Include="References\libDSC.dll" />
     <None Include="References\libDSC.pdb" />
     <None Include="References\libDSC.xml" />
+    <None Include="Images\splashscreen.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="References" />
+    <Folder Include="Images" />
     <Resource Include="zenda_icon.ico" />
   </ItemGroup>
   <ItemGroup>
