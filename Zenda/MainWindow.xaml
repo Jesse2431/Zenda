@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Zenda"
         mc:Ignorable="d"
         Style="{StaticResource CustomWindowStyle}"
-        Title="Zenda" Height="1078" Width="1920" WindowState="Maximized">
+        Title="Zenda - No file opened" Height="1080" Width="1920" WindowState="Maximized">
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top" Background="#FF151515" BorderThickness="1" BorderBrush="#FF3A3A3A" Name="Menu">

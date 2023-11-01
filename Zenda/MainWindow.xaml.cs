@@ -35,14 +35,16 @@ namespace Zenda
         private void MenuFileExitClicked(object sender, RoutedEventArgs e)
         {
             var Result = System.Windows.MessageBox.Show(
-                "Are you sure you want to exit?\n Any unsaved changes will be lost!", // Text to display in the MessageBox
-                "Exit Zenda",                                                          // Title of the MessageBox
-                MessageBoxButton.YesNo,                                                // What type of choices the user has
-                MessageBoxImage.Warning);                                              // Pictogram icon to show
+                "Are you sure you want to exit?\n" +     // Text A to display in the MessageBox
+                "Any unsaved changes will be lost!",     // Text B to display in the MessageBox
+                "Exit Zenda",                            // Title of the MessageBox
+                MessageBoxButton.YesNo,                  // What type of choices the user has
+                MessageBoxImage.Warning                  // Pictogram icon to show
+            );                                               
 
             if (Result == MessageBoxResult.Yes)
             {
-                Environment.Exit(0);
+                Environment.Exit(0); // Exits the program basically
             }
             else if (Result == MessageBoxResult.No)
             {
@@ -95,7 +97,11 @@ namespace Zenda
                 "Fireboyd78, for DSCript: https://github.com/Fireboyd78/driver-tools/ (no set license) \n" +
                 "AngryCarrot789, for WPFDarkTheme: https://github.com/AngryCarrot789/WPFDarkTheme (MIT License) \n" +
                 "\n" +
-                "            Source: https://github.com/Jesse2431/Zenda", "Credits", MessageBoxButton.OK, MessageBoxImage.Information);
+                "            Source: https://github.com/Jesse2431/Zenda", 
+                "Credits", 
+                MessageBoxButton.OK, 
+                MessageBoxImage.Information
+            );
         }
         
 		void MenuFileClose_Click(object sender, RoutedEventArgs e)
