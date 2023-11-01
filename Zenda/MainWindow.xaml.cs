@@ -27,6 +27,7 @@ namespace Zenda
     {
     	public const string programTitle = "Zenda"; // used when opening/closing a file
     	public FileStream file;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -54,13 +55,15 @@ namespace Zenda
         
         // NOTE: called if a file was open in the menu
         // NOTE: string 'game' is which game on what game we will open the file
-        public void onOpenFile(string game="Driv3r") {
+        public void onOpenFile(string game="Driv3r")
+        {
             this.Title = String.Format("{0} - {1}",programTitle,file.Name);
-        	// TODO: Decide how it will open the file       
+        	// TODO: Decide how it will open the file
         }
         
         // NOTE: called if a file was closed in the menu 
-        public void onCloseFile() {
+        public void onCloseFile()
+        {
            // TODO: Decide how it will close the file
         }
         
@@ -69,6 +72,7 @@ namespace Zenda
         	// TODO: Use between DSCript.Driv3r.GetPath() and DSCript.DriverPL.GetPath() as initial directory if needed
             OpenFileDialog fileDialog = new OpenFileDialog(); // creates the open file dialog
         	fileDialog.InitialDirectory = Directory.GetCurrentDirectory().ToString(); // set directory to current directory
+
         	// TODO: set formats Zenda can open
         	fileDialog.Filter = "Category 1 (*.bin)|*.bin|Category 2 (*.sp)|*.sp|All files (*.*)|*.*";
         	fileDialog.Title = "Choose a file to open";
@@ -76,12 +80,14 @@ namespace Zenda
         	
         	// show open file dialog & check if user has choosed a file
         	if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-        		try {
+        		try
+                {
         		    file = new FileStream(fileDialog.FileName,FileMode.Open); // TODO: Decide what FileMode will be used
         		    MenuFileClose.IsEnabled = true;
         		    onOpenFile(); // call onOpenFile to indicate that the file was open
         		}
-        		catch (Exception ex) {
+        		catch (Exception ex)
+                {
         			System.Windows.MessageBox.Show("ERROR:\n\n"+ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         		}
         	}
@@ -106,13 +112,29 @@ namespace Zenda
         
 		void MenuFileClose_Click(object sender, RoutedEventArgs e)
 		{
-			if (file!=null) {
-    			this.Title = programTitle;
-     			file.Close();
-     			MenuFileClose.IsEnabled = false;
-     			onCloseFile();
-			}
-		}
+            var Result = System.Windows.MessageBox.Show(
+                "Are you sure you want to close this file?\n" +     // Text A to display in the MessageBox
+                "Any unsaved changes will be lost!",                // Text B to display in the MessageBox
+                "Close file",                                       // Title of the MessageBox
+                MessageBoxButton.YesNo,                             // What type of choices the user has
+                MessageBoxImage.Warning                             // Pictogram icon to show
+            );
 
+            if (Result == MessageBoxResult.Yes)
+            {
+                // If a file is open, close it
+                if (file != null)
+                {
+                    Title = programTitle;
+                    file.Close();
+                    MenuFileClose.IsEnabled = false;
+                    onCloseFile();
+                }
+            }
+            else if (Result == MessageBoxResult.No)
+            {
+                // Do nothing because user decided to not close current file
+            }
+		}
     }
 }
