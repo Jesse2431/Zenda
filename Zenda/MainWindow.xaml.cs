@@ -26,6 +26,7 @@ namespace Zenda
     public partial class MainWindow : Window
     {
     	public const string programTitle = "Zenda"; // used when opening/closing a file
+    	public const string programTitleNF = "Zenda - No file opened"; // when a file is closed this will be used
     	public FileStream file;
         public MainWindow()
         {
@@ -44,6 +45,7 @@ namespace Zenda
 
             if (Result == MessageBoxResult.Yes)
             {
+            	if (file!=null) { file.Close(); }
                 Environment.Exit(0); // Exits the program basically
             }
             else if (Result == MessageBoxResult.No)
@@ -107,7 +109,7 @@ namespace Zenda
 		void MenuFileClose_Click(object sender, RoutedEventArgs e)
 		{
 			if (file!=null) {
-    			this.Title = programTitle;
+    			this.Title = programTitleNF;
      			file.Close();
      			MenuFileClose.IsEnabled = false;
      			onCloseFile();
