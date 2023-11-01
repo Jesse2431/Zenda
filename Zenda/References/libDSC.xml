@@ -1,0 +1,1416 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>libDSC</name>
+    </assembly>
+    <members>
+        <member name="F:DSCript.Chunk.Version">
+            <summary>
+            The supported version for loading Chunk files (Version 3).
+            </summary>
+        </member>
+        <member name="T:DSCript.ChunkType">
+            <summary>
+            An enumeration for holding values of every possible type within a Chunk file
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.Chunk">
+            <summary>
+            [CHNK] - The header for a CHUNK block
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ModelPackagePC">
+            <summary>
+            [MDPC] - A block that contains various models and textures
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ModelPackagePC_X">
+            <summary>
+            [MDXN] - A block that contains various models and textures (new format found in DPL and DSF)
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ModelPackageWii">
+            <summary>
+            [MDWI] - Wii model package
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ModelPackageXbox">
+            <summary>
+            [MDXB] - Xbox model package
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ModelPackagePS2">
+            <summary>
+            [GMC2] - PS2 model package
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.UnifiedPackage">
+            <summary>
+            [0x0] - A block that acts as a unifiable package for various data types
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.VehicleHierarchy">
+            <summary>
+            [UPVH] - A block that contains vehicle hierarchy information
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.StandaloneTextures">
+            <summary>
+            [UPST] - A block that contains standalone texture IDs
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.BuildInfo">
+            <summary>
+            [BINF] - A block that contains developer export information
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ModelContainer">
+            <summary>
+            [MODL] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.GPUShader">
+            <summary>
+            [GPUS] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.UnknownMRRD">
+            <summary>
+            [MRRD] - No research has been done on this format (some sort of flags table?)
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ExportedMissionRoot">
+            <summary>
+            [EPMR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpoolSystemInitChunker">
+            <summary>
+            [SSIC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpoolSystemLookup">
+            <summary>
+            [SSLP] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledVehicleStringCollection">
+            <summary>
+            [VSCT] - No research has been done on this format (may not be for strings?)
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledCharacterStringCollection">
+            <summary>
+            [CSCT] - No research has been done on this format (may not be for strings?)
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledSoundBank">
+            <summary>
+            [SSBK] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledAnimationChunk">
+            <summary>
+            [ANMC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledGameSoundChunk">
+            <summary>
+            [SGSC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledGameSoundBank">
+            <summary>
+            [SGSB] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledCharacterChunk">
+            <summary>
+            [CHAC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledLocaleChunk">
+            <summary>
+            [LOCC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledLocaleText">
+            <summary>
+            [LOCT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledLitterChunk">
+            <summary>
+            [LTCK] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledLitterData">
+            <summary>
+            [LTDT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledParticleChunk">
+            <summary>
+            [PTCK] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledParticleData">
+            <summary>
+            [PTDT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledSkyCloudChunk">
+            <summary>
+            [SPCK] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledSkyCloudData">
+            <summary>
+            [SPDT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpooledVehicleChunk">
+            <summary>
+            [VEHC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.VO3HandlingData">
+            <summary>
+            [VO3D] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CharacterSpoolChunk">
+            <summary>
+            [CHAR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CharacterSpoolIndex">
+            <summary>
+            [CHAI] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.NonRendererData">
+            <summary>
+            [NONR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourcePackage">
+            <summary>
+            [PCKG] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.UIDLookup">
+            <summary>
+            [UIDL] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpoolableItem">
+            <summary>
+            [SPOI] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpoolableItemLookup">
+            <summary>
+            [SPOL] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SpoolableDataTakeARide">
+            <summary>
+            [SDFD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.AnimationIndex">
+            <summary>
+            [AIDX] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.AnimationClips">
+            <summary>
+            [ACLP] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SuperRegion">
+            <summary>
+            [GESR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PhysicsModelData">
+            <summary>
+            [GEPM] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PhysicsModelLookupData">
+            <summary>
+            [PMLD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.WaterInstanceData">
+            <summary>
+            [GWTR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.BuildingInstanceData">
+            <summary>
+            [GEBI] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SplineRoadData">
+            <summary>
+            [GERD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.AIExport">
+            <summary>
+            [AIEX] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.AnimatedObjectData">
+            <summary>
+            [ANOD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PropDataContainer">
+            <summary>
+            [GEPD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PropHierarchyInformation">
+            <summary>
+            [HRDT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.Region">
+            <summary>
+            [GEIR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.WaterRegionData">
+            <summary>
+            [GWRD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.RegionTerrainData">
+            <summary>
+            [GRTD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.BuildingRoutefindData">
+            <summary>
+            [GEBR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.BroadphaseData">
+            <summary>
+            [JNR!] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.AttractorData">
+            <summary>
+            [ATRD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.RegionSceneData">
+            <summary>
+            [SCND] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.OccluderGameData">
+            <summary>
+            [OCGD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.InteriorRegion">
+            <summary>
+            [IRCT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.InteriorLightingData">
+            <summary>
+            [ISHM] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.MissionEditorModelInfo">
+            <summary>
+            [PINF] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.MissionEditorModelData">
+            <summary>
+            [PIND] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.MissionEditorStrings">
+            <summary>
+            [PINS] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.GrandioseLookup">
+            <summary>
+            [GEGL] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SuperRegionInfo">
+            <summary>
+            [GESI] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LookupHeader">
+            <summary>
+            [GILH] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SuperRegionLookup">
+            <summary>
+            [GSIL] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.RegionLookup">
+            <summary>
+            [GRIL] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.InteriorLookupInfo">
+            <summary>
+            [IRLU] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ExternalModelLookup">
+            <summary>
+            [PCSL] - An unused block type.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.GlobalRegion">
+            <summary>
+            [GEGR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SceneData">
+            <summary>
+            [IRDT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.GadgetLookup">
+            <summary>
+            [GLUT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.WormsData">
+            <summary>
+            [WORM] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PropData">
+            <summary>
+            [PROP] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.AttractorSuperRegionData">
+            <summary>
+            [ASRD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ProjectedTextures">
+            <summary>
+            [PRJT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ExportedMissionChunk">
+            <summary>
+            [EM__] - Exported mission data for Driver: Parallel Lines
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.MissionSummary">
+            <summary>
+            [EMMS] - A block that contains data in which the game should handle this mission, such as what city to play in.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ExportedMissionObjects">
+            <summary>
+            [EMOB] - Contains data for positioning objects and defining actors in a mission.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ExportedMissionPropHandles">
+            <summary>
+            [EMPR] - Unknown. Possibly deprecated.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportData">
+            <summary>
+            [LELD] - Contains all of the logic data (definitions, properties, etc).
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportStringCollection">
+            <summary>
+            [LESC] - Contains strings associated with the logic data.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportSoundBank">
+            <summary>
+            [LESB] - Contains sound id's to be used in the logic data.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportActorsChunk">
+            <summary>
+            [LEAC] - Contains actor definitions and properties.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportActorDefinitions">
+            <summary>
+            [LEAD] - Contains definitions for characters, vehicles, weapons, etc. to be used in the mission.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportNodesChunk">
+            <summary>
+            [LENC] - Contains logic node definitions and properties.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportNodeDefinitionsTable">
+            <summary>
+            [LEND] - Contains definitions for mission logic.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportPropertiesTable">
+            <summary>
+            [LEPR] - Contains properties associated with each definition.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportActorSetTable">
+            <summary>
+            [LEAS] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportWireCollections">
+            <summary>
+            [LEWC] - Contains wires that link logic nodes together.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.LogicExportScriptCounters">
+            <summary>
+            [LECO] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.UnknownLogicExportLEPS">
+            <summary>
+            [LEPS] - Unknown purpose in Driver: Parallel Lines.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.UnknownLogicExportLENE">
+            <summary>
+            [LENE] - Unknown purpose in Driver: Parallel Lines.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.UnknownLogicExportFING">
+            <summary>
+            [FING] - Unknown purpose in Driver: Parallel Lines.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.UnknownLogicExportLEAT">
+            <summary>
+            [LEAT] - Unknown purpose in Driver: Parallel Lines.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ExtraCharacterData">
+            <summary>
+            [UPXD] - A block that contains character model and texture data.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CharacterSkeletons">
+            <summary>
+            [UPCB] - A block that contains character skeletons for the male and female models.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ReflectionsMenuDataPackage">
+            <summary>
+            [RMDP] - A block that holds data pertaining to the GUI (main menu, pause menu, etc)
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ReflectionsMenuDataChunk">
+            <summary>
+            [RMDL] - A block that contains data for handling all GUI-related data
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.FontContainer">
+            <summary>
+            [FONT] - A block that holds data pertaining to the fonts
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.FontData">
+            <summary>
+            [FBNK] - A block that contains textures used for the fonts
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourceChunk">
+            <summary>
+            [DRSP] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourceTexture">
+            <summary>
+            [TEXC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourceTextureUID">
+            <summary>
+            [UIDC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourceTextureDDS">
+            <summary>
+            [DXTC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourceMaterialContainer">
+            <summary>
+            [MACO] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourceMaterialHeader">
+            <summary>
+            [MAHE] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourceMaterialXML">
+            <summary>
+            [MATX] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourceMaterialRenderMethodHeader">
+            <summary>
+            [MARH] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ResourceMaterialRenderMethodParameter">
+            <summary>
+            [MARP] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SubmodelChunk">
+            <summary>
+            [SBMC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.SubmodelHeader">
+            <summary>
+            [SBBH] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PooledVertexBufferChunk">
+            <summary>
+            [VXCK] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PooledVertexHeader">
+            <summary>
+            [VXHD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PooledVertexDependencies">
+            <summary>
+            [VXDP] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PooledVertexBufferData">
+            <summary>
+            [VXDT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PooledVertexDeclaration">
+            <summary>
+            [VCDL] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PooledIndexChunk">
+            <summary>
+            [IXCK] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PooledIndexHeader">
+            <summary>
+            [IXHD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PooledIndexDependencies">
+            <summary>
+            [IXDP] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PooledIndexBuffer">
+            <summary>
+            [IXDT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.RendererDataUIDs">
+            <summary>
+            [MDID] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.AnimationGraph">
+            <summary>
+            [AGRA] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.PedestrianMeshData">
+            <summary>
+            [PDMD] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CityLockingEntry">
+            <summary>
+            [CTYE] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CityLockingSplines">
+            <summary>
+            [CTYS] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CityLockingRoads">
+            <summary>
+            [CTYR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.AmbientVolumeData">
+            <summary>
+            [AMBV] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.BillboardInfo">
+            <summary>
+            [BILL] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.HeightInfo">
+            <summary>
+            [HINF] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.AdvertisingHeader">
+            <summary>
+            [ADVH] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CommentaryRoot">
+            <summary>
+            [CMRT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CommentaryCommonContainer">
+            <summary>
+            [CMCC] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CommentaryMissionData">
+            <summary>
+            [CMMS] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CutsceneRoot">
+            <summary>
+            [CUTR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.CutsceneData">
+            <summary>
+            [CUTS] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ScriptPackageHeader">
+            <summary>
+            [SCRH] - Contains script package information.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ScriptPackageLookup">
+            <summary>
+            [SCRC] - Contains script package lookup information.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ScriptPackageRoot">
+            <summary>
+            [SCRR] - Compiled script package data.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ScriptPackageCompiledScript">
+            <summary>
+            [SCRS] - Contains compiled Lua script data.
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ShaderParamSetRoot">
+            <summary>
+            [SPSR] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ShaderParamSet">
+            <summary>
+            [SPSS] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.ShaderParamSetParams">
+            <summary>
+            [SPSP] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.VehicleSoundRoot">
+            <summary>
+            [VSRT] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.VehicleCommonSoundHeader">
+            <summary>
+            [VSCH] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.VehicleSoundHeader">
+            <summary>
+            [VSVH] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.VehicleSoundBank">
+            <summary>
+            [SBAK] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.VehicleGranularData">
+            <summary>
+            [GRBK] - No research has been done on this format
+            </summary>
+        </member>
+        <member name="F:DSCript.ChunkType.DM_WMK_Info">
+            <summary>
+            [DMWK] - This format may be leftover from development. It serves an unknown purpose in 'dngvehicles.sp' in Driver: San Francisco.
+            </summary>
+        </member>
+        <member name="E:DSCript.DSC.ProgressUpdated">
+            <summary>
+            An event that is called when a progress update is reported. The sender object can be a null value.
+            </summary>
+        </member>
+        <member name="M:DSCript.DSC.Update(System.Object,System.String,System.Double)">
+            <summary>
+            Sends a progress update to the <see cref="E:DSCript.DSC.ProgressUpdated"/> event handler.
+            </summary>
+            <param name="sender">The object sending a progress update.</param>
+            <param name="message">The message of the update being reported.</param>
+            <param name="progress">The current progress of the update being reported. Optional.</param>
+        </member>
+        <member name="M:DSCript.DSC.GetLastUpdate">
+            <summary>
+            Returns the most recently reported progress update.
+            </summary>
+            <returns>A <see cref="T:DSCript.ProgressUpdateEventArgs"/> object containing the progress data.</returns>
+        </member>
+        <member name="M:DSCript.DSC.Update(System.String,System.Double)">
+            <summary>
+            Sends a progress update to the <see cref="E:DSCript.DSC.ProgressUpdated"/> event handler with a null sender object.
+            </summary>
+            <param name="message">The message of the update being reported.</param>
+            <param name="progress">The current progress of the update being reported. Optional.</param>
+        </member>
+        <member name="M:DSCript.IniConfiguration.AppendText(System.String)">
+            <summary>
+            Appends the string to the end of the Ini file.
+            </summary>
+            <param name="str">The string to append.</param>
+        </member>
+        <member name="F:DSCript.CopyClassType.SoftCopy">
+            <summary>
+            Copy the top-level of the class, reusing any class/struct members as-is.
+            </summary>
+        </member>
+        <member name="F:DSCript.CopyClassType.DeepCopy">
+            <summary>
+            Deeply copy the class, nesting into any class/struct members.
+            </summary>
+        </member>
+        <member name="T:DSCript.ICopyClass`1">
+            <summary>
+            Interface for creating a new copy instance of a class.
+            </summary>
+            <typeparam name="T">The type of class a copy will be created of.</typeparam>
+        </member>
+        <member name="M:DSCript.ICopyClass`1.Copy(DSCript.CopyClassType)">
+            <summary>
+            Create a copy of the class using the specified copy type.
+            </summary>
+            <param name="copyType">The type of copy to perform.</param>
+            <returns>A copy of the class.</returns>
+        </member>
+        <member name="T:DSCript.ICopyClassTo`1">
+            <summary>
+            Interface for copying to an existing instance of a class.
+            </summary>
+            <typeparam name="T">The type of class to copy to.</typeparam>
+        </member>
+        <member name="M:DSCript.ICopyClassTo`1.CopyTo(`0,DSCript.CopyClassType)">
+            <summary>
+            Copies the class to another instance using the specified copy type.
+            </summary>
+            <param name="obj">The object to copy data to.</param>
+            <param name="copyType">The type of copy to perform.</param>
+        </member>
+        <member name="T:DSCript.ICopyCat`1">
+            <summary>
+            Interface for creating new/copying to instances of a class.
+            </summary>
+            <typeparam name="T">The type of class that will be newly created and/or copied to.</typeparam>
+        </member>
+        <member name="M:DSCript.ICopyCat`1.CanCopy(DSCript.CopyClassType)">
+            <summary>
+            Validates data can be copied from this class.
+            </summary>
+            <param name="copyType">The type of copy to check if can be performed.</param>
+            <returns>True if the class can be copied; otherwise, False.</returns>
+        </member>
+        <member name="M:DSCript.ICopyCat`1.CanCopyTo(`0,DSCript.CopyClassType)">
+            <summary>
+            Validates data can be copied to the class instance.
+            </summary>
+            <param name="obj">The object to check if can be copied.</param>
+            <param name="copyType">The type of copy to check if can be performed.</param>
+            <returns>True if the class can copy to the instance; otherwise, False.</returns>
+        </member>
+        <member name="M:DSCript.ICopyCat`1.IsCopyOf(`0,DSCript.CopyClassType)">
+            <summary>
+            Checks if the specified class instance is already a copy of the specified copy type of the class.
+            </summary>
+            <param name="obj">The object to check if is a copy of the specified copy type.</param>
+            <param name="copyType">The type of copy to check the object with.</param>
+            <returns>True if the instance is a copy of the class of the specified copy type; otherwise, False.</returns>
+        </member>
+        <member name="F:DSCript.Models.Vertex.Position">
+            <summary>Gets or sets the position of the vertex.</summary>
+        </member>
+        <member name="F:DSCript.Models.Vertex.Normal">
+            <summary>Gets or sets the normals of the vertex.</summary>
+        </member>
+        <member name="F:DSCript.Models.Vertex.UV">
+            <summary>Gets or sets the UV mapping of the vertex.</summary>
+        </member>
+        <member name="F:DSCript.Models.Vertex.Color">
+            <summary>Gets or sets the RGBA diffuse color of the vertex.</summary>
+        </member>
+        <member name="F:DSCript.Models.Vertex.BlendWeight">
+            <summary>Gets or sets the blending weights of the vertex.</summary>
+        </member>
+        <member name="F:DSCript.Models.Vertex.Tangent">
+            <summary>Gets or sets the tangent of the vertex.</summary>
+        </member>
+        <member name="P:DSCript.Models.Model.VertexBuffer">
+            <summary>
+            Gets or sets the Vertex Buffer to use when accessing vertices
+            </summary>
+        </member>
+        <member name="F:DSCript.Models.ModelPackageLoadLevel.FastLoad">
+            <summary>
+            Loads in the header only.
+            </summary>
+        </member>
+        <member name="F:DSCript.Models.ModelPackageLoadLevel.Materials">
+            <summary>
+            Loads in the header and materials.
+            </summary>
+        </member>
+        <member name="F:DSCript.Models.ModelPackageLoadLevel.Models">
+            <summary>
+            Loads in the header, materials, and models.
+            </summary>
+        </member>
+        <member name="F:DSCript.Models.ModelPackageLoadLevel.Default">
+            <summary>
+            Loads in everything.
+            </summary>
+        </member>
+        <member name="P:DSCript.Models.SubModel.ModelPackage">
+            <summary>
+            The <see cref="P:DSCript.Models.SubModel.ModelPackage"/> this mesh belongs to.
+            </summary>
+        </member>
+        <member name="M:DSCript.Parser.TokenReader.ReadInTokens">
+            <summary>
+            Reads in the tokens on the next line and returns the number of tokens loaded.
+            </summary>
+            <returns>The number of tokens parsed, otherwise -1 if end of stream reached.</returns>
+        </member>
+        <member name="M:DSCript.Parser.TokenReader.ReadToken">
+            <summary>
+            Reads the next valid token from the buffer and increments the token index.
+            </summary>
+            <returns>The next valid token from the buffer; otherwise, null.</returns>
+        </member>
+        <member name="M:DSCript.Parser.TokenReader.PeekToken">
+            <summary>
+            Gets the next token from the buffer without incrementing the token index or filling the buffer.
+            </summary>
+            <returns>The next token from the buffer; otherwise, null.</returns>
+        </member>
+        <member name="F:DSCript.Spooling.ChunkSchemaType.Sequential">
+            <summary>
+            Chunks are expected to be in sequential order. Faster, but more prone to failing.
+            </summary>
+        </member>
+        <member name="F:DSCript.Spooling.ChunkSchemaType.NonSequential">
+            <summary>
+            Chunks are not expected to be in sequential order. Slower, but less likely to fail.
+            </summary>
+        </member>
+        <member name="F:DSCript.Spooling.ChunkSchemaType.Default">
+            <summary>
+            Specifies the default schema type. See the <see cref="F:DSCript.Spooling.ChunkSchemaType.NonSequential"/> type for more info.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolerExtensions.GetFirstChild(DSCript.Spooling.SpoolablePackage,DSCript.ChunkType)">
+            <summary>
+            Returns the first child matching the specified <seealso cref="T:DSCript.ChunkType"/>.
+            </summary>
+            <param name="this">The <see cref="T:DSCript.Spooling.SpoolablePackage"/>.</param>
+            <param name="chunk">The <see cref="T:DSCript.ChunkType"/> to find.</param>
+            <returns></returns>
+        </member>
+        <member name="T:DSCript.Spooling.SpoolerEventHandler">
+            <summary>
+            Represents a delegate for handling spooler events.
+            </summary>
+            <param name="sender">The spooler who triggered this event.</param>
+            <param name="e">The event arguments accompanying the spooler.</param>
+        </member>
+        <member name="P:DSCript.Spooling.FileChunker.FileName">
+            <summary>
+            Gets the filename of the chunker, if applicable. A null value means nothing was loaded.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.FileChunker.IsLoaded">
+            <summary>
+            The state of the chunker, whether any files have been loaded or not.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.FileChunker.IsCompressed">
+            <summary>
+            Gets or sets if the chunker uses LZW-compression.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.FileChunker.CanLoad">
+            <summary>
+            Determines whether or not the chunker can load a file.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.FileChunker.CanSave">
+            <summary>
+            Determines whether or not the chunker can save a file.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.FileChunker.Content">
+            <summary>
+            Gets the content of this chunker.
+            </summary>
+        </member>
+        <member name="E:DSCript.Spooling.FileChunker.SpoolerLoaded">
+            <summary>
+            An event that is called when a spooler is loaded from a file. The event args are unused.
+            </summary>
+        </member>
+        <member name="E:DSCript.Spooling.FileChunker.FileLoadBegin">
+            <summary>
+            An event that is called prior to the chunker loading a file. The event args are unused.
+            </summary>
+        </member>
+        <member name="E:DSCript.Spooling.FileChunker.FileLoadEnd">
+            <summary>
+            An event that is called when the chunker finishes loading a file. The event args are unused.
+            </summary>
+        </member>
+        <member name="E:DSCript.Spooling.FileChunker.FileSaveBegin">
+            <summary>
+            An event that is called prior to the chunker saving a file. The event args are unused.
+            </summary>
+        </member>
+        <member name="E:DSCript.Spooling.FileChunker.FileSaveEnd">
+            <summary>
+            An event that is called when the chunker finishes saving a file. The event args are unused.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.OnSpoolerLoaded(DSCript.Spooling.Spooler,System.EventArgs)">
+            <summary>
+            Represents a method that is called when the chunker loads a spooler from a file.
+            The default behavior fires the <see cref="E:DSCript.Spooling.FileChunker.SpoolerLoaded"/> event.
+            </summary>
+            <param name="sender">The spooler that was loaded.</param>
+            <param name="e">Unused.</param>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.OnFileLoadBegin">
+            <summary>
+            Represents a method that is called prior to the chunker loading a file.
+            Ideally, this method should be used to set up any uninitialized variables.
+            <para>The default behavior fires the <see cref="E:DSCript.Spooling.FileChunker.FileLoadBegin"/> event.</para>
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.OnFileLoadEnd">
+            <summary>
+            Represents a method that is called when the chunker finishes loading a file.
+            The default behavior fires the <see cref="E:DSCript.Spooling.FileChunker.FileLoadEnd"/> event.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.OnFileSaveBegin">
+            <summary>
+            Represents a method that is called prior to the chunker saving a file.
+            Ideally, this method should be used to ensure all content is ready to be saved.
+            <para>The default behavior fires the <see cref="E:DSCript.Spooling.FileChunker.FileSaveBegin"/> event.</para>
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.OnFileSaveEnd">
+            <summary>
+            Represents a method that is called when the chunker finishes saving a file.
+            The default behavior fires the <see cref="E:DSCript.Spooling.FileChunker.FileSaveEnd"/> event.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.GetBuffer(DSCript.Spooling.SpoolableBuffer)">
+            <summary>
+            Retrieves a buffer using data provided from the specified spooler. Intended for internal use only.
+            </summary>
+            <param name="spooler">The spooler</param>
+            <returns>The buffer from the file for the spooler.</returns>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.WriteChunk(System.IO.Stream,DSCript.Spooling.SpoolablePackage)">
+            <summary>
+            Writes the specified block of chunked data to the current position in a given <see cref="T:System.IO.Stream"/>.
+            The length of the stream should be set prior to calling this method.
+            </summary>
+            <param name="stream">The stream to write to.</param>
+            <param name="chunk">The chunked data.</param>
+            <exception cref="T:System.EndOfStreamException">Thrown when the amount of chunked data exceeds the length of the stream.</exception>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.WriteChunk(System.String,DSCript.Spooling.SpoolablePackage)">
+            <summary>
+            Creates a new file with the specified name and writes a block of chunked data to it.
+            </summary>
+            <param name="filename">The file to write to.</param>
+            <param name="chunk">The chunked data.</param>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.Load(System.String)">
+            <summary>
+            Loads the contents of the file into the file chunker, and overwrites any existing content.
+            </summary>
+            <param name="filename">The file to load.</param>
+            <returns>True if the chunker loaded the file; otherwise, false./</returns>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.Save">
+            <summary>
+            Saves the contents of the chunker into the original file, overwriting any existing data.
+            </summary>
+            <returns>True if the chunker saved the file; otherwise, false.</returns>
+        </member>
+        <member name="M:DSCript.Spooling.FileChunker.Save(System.String,System.Boolean)">
+            <summary>
+            Saves the contents of the chunker into the specified file, overwriting any existing data.
+            </summary>
+            <param name="filename">The file to save.</param>
+            <param name="updateStream">Determines if the stream should be updated. The default is value 'true'.</param>
+            <returns>True if the chunker saved the file; otherwise, false.</returns>
+        </member>
+        <member name="P:DSCript.Spooling.ISpoolableResource.Spooler">
+            <summary>
+            Gets or sets the spooler this resource will access during its lifetime.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.ISpoolableResource.Load">
+            <summary>
+            Loads the contents of the spooler into the resource.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.ISpoolableResource.Save">
+            <summary>
+            Saves the contents of the resource into the spooler.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.SpoolableBuffer.FileOffset">
+            <summary>
+            Gets or sets the file offset of this spooler. Intended for internal use only.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.SpoolableBuffer.FileChunker">
+            <summary>
+            Gets or sets the file chunker for this spooler. Intended for internal use only.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableBuffer.GetMemoryStream">
+            <summary>
+            Returns a <see cref="T:System.IO.MemoryStream"/> based on a local copy of the buffer. Changes made to the local copy will not reflect upon the buffer attached to the spooler.
+            </summary>
+            <returns>A <see cref="T:System.IO.MemoryStream"/> based on a local copy of the buffer. local copy of the buffer.</returns>
+            <remarks>This method is a shortcut for creating a new <see cref="T:System.IO.MemoryStream"/> using the <see cref="M:DSCript.Spooling.SpoolableBuffer.GetBuffer"/> method.</remarks>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableBuffer.GetBuffer">
+            <summary>
+            Returns a local copy of the buffer. Changes made to the local copy will not reflect upon the buffer attached to the spooler.
+            </summary>
+            <returns>A local copy of the buffer.</returns>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableBuffer.SetBuffer(System.Byte[])">
+            <summary>
+            Sets the content of the buffer. If this spooler is attached to a parent, the parent will adjust its size accordingly.
+            </summary>
+            <param name="buffer">The buffer containing the new data.</param>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableBuffer.ClearBuffer">
+            <summary>
+            Clears the contents of the buffer.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.SpoolableBuffer.Size">
+            <summary>
+            Returns the size of the buffer.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.SpoolablePackage.Children">
+            <summary>
+            Gets the collection of children attached to this spooler.
+            </summary>
+        </member>
+        <member name="T:DSCript.Spooling.SpoolableResource`1">
+            <summary>
+            Represents an abstract spoolable resource class. Inherited classes should be created using the <see cref="M:DSCript.Spooling.SpoolableResourceFactory.Create``1(DSCript.Spooling.Spooler)"/> method.
+            </summary>
+            <typeparam name="T">The type of <see cref="P:DSCript.Spooling.SpoolableResource`1.Spooler"/> this spoolable resource is based on.</typeparam>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableResource`1.GetInterface">
+            <summary>
+            Returns the public interface for a spoolable resource.
+            </summary>
+            <returns>The public interface for a spoolable resource.</returns>
+        </member>
+        <member name="T:DSCript.Spooling.SpoolableResourceFactory">
+            <summary>
+            A static class for creating new spoolable resources.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableResourceFactory.Create``1">
+            <summary>
+            Creates a new spoolable resource.
+            </summary>
+            <typeparam name="T">The type of spoolable resource to create.</typeparam>
+            <returns>A new spoolable resource of the specified type.</returns>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableResourceFactory.Create``1(DSCript.Spooling.Spooler)">
+            <summary>
+            Creates a new spoolable resource from the specified spooler.
+            </summary>
+            <typeparam name="T">The type of spoolable resource to create.</typeparam>
+            <param name="spooler">The spooler of which a new spoolable resource will be created from.</param>
+            <returns>A new spoolable resource of the specified type, created from the specified spooler.</returns>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableResourceFactory.Create``1(DSCript.Spooling.Spooler,System.Boolean)">
+            <summary>
+            Creates a new spoolable resource from the specified spooler, and alternatively loads the content from it immediately.
+            </summary>
+            <typeparam name="T">The type of spoolable resource to create.</typeparam>
+            <param name="spooler">The spooler of which a new spoolable resource will be created from.</param>
+            <param name="loadSpooler">Determines if the spooler should be loaded upon creation.</param>
+            <returns>A new spoolable resource of the specified type, created from the specified spooler. If specified, the content is loaded first before returning.</returns>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableResourceFactory.AsResource``1(DSCript.Spooling.Spooler)">
+            <summary>
+            Returns the spooler as a new spoolable resource of the specified type.
+            </summary>
+            <typeparam name="T">The type of spoolable resource to create.</typeparam>
+            <returns>A new spoolable resource of the specified type.</returns>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolableResourceFactory.AsResource``1(DSCript.Spooling.Spooler,System.Boolean)">
+            <summary>
+            Returns the spooler as a new spoolable resource of the specified type, and alternatively loads the content from it immediately.
+            </summary>
+            <typeparam name="T">The type of spoolable resource to create.</typeparam>
+            <param name="loadSpooler">Determines if the spooler should be loaded upon creation.</param>
+            <returns>A new spoolable resource of the specified type. If specified, the content is loaded first before returning.</returns>
+        </member>
+        <member name="F:DSCript.Spooling.SpoolerAlignment.Align4">
+            <summary>
+            4-byte alignment (e.g. 0x3 -> 0x4)
+            </summary>
+        </member>
+        <member name="F:DSCript.Spooling.SpoolerAlignment.Align16">
+            <summary>
+            16-byte alignment (e.g. 0x3 -> 0x10)
+            </summary>
+        </member>
+        <member name="F:DSCript.Spooling.SpoolerAlignment.Align256">
+            <summary>
+            256-byte alignment (e.g. 0x3 -> 0x100)
+            </summary>
+        </member>
+        <member name="F:DSCript.Spooling.SpoolerAlignment.Align1024">
+            <summary>
+            1024-byte alignment (e.g. 0x3 -> 0x400)
+            </summary>
+        </member>
+        <member name="F:DSCript.Spooling.SpoolerAlignment.Align2048">
+            <summary>
+            2048-byte alignment (e.g. 0x3 -> 0x800)
+            </summary>
+        </member>
+        <member name="F:DSCript.Spooling.SpoolerAlignment.Align4096">
+            <summary>
+            4096-byte alignment (e.g. 0x3 -> 0x1000)
+            </summary>
+        </member>
+        <member name="T:DSCript.Spooling.Spooler">
+            <summary>
+            Represents an abstract class for data spoolers.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.Spooler.Dispose">
+            <summary>
+            Disposes of the resources used by this spooler.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.Spooler.Description">
+            <summary>
+            Gets or sets the description for this spooler. The length should not exceed 255 characters.
+            <para>Setting this value to 'null' will force an empty string to be used instead.</para>
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.Spooler.Context">
+            <summary>
+            Gets or sets the context of this spooler.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.Spooler.BaseOffset">
+            <summary>
+            Gets the absolute position of this spooler, relative to its parent.
+            If this spooler is not attached to a parent, this will return zero.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.Spooler.Offset">
+            <summary>
+            Gets or sets the offset of this spooler. Intended for internal use only.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.Spooler.Version">
+            <summary>
+            Gets or sets the version of this spooler.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.Spooler.Alignment">
+            <summary>
+            Gets or sets the byte-alignment of this spooler.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.Spooler.Size">
+            <summary>
+            Gets the size of this spooler. If an inherited class does not implement this property, a value of zero is always returned.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.Spooler.Parent">
+            <summary>
+            Gets the <see cref="T:DSCript.Spooling.SpoolablePackage"/> containing this spooler. If no parent is attached, the value is null.
+            </summary>
+        </member>
+        <member name="P:DSCript.Spooling.Spooler.IsDirty">
+            <summary>
+            Gets or sets the dirty status of this spooler.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.Spooler.EnsureDetach">
+            <summary>
+            Ensures the spooler has been detached from its parent, if applicable.
+            </summary>
+        </member>
+        <member name="T:DSCript.Spooling.SpoolerCollection">
+            <summary>
+            Represents a collection of spoolers. This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="M:DSCript.Spooling.SpoolerCollection.GetSpoolablePackage">
+            <summary>
+            Returns the <see cref="T:DSCript.Spooling.SpoolablePackage"/> this collection is attached to.
+            </summary>
+            <returns>The <see cref="T:DSCript.Spooling.SpoolablePackage"/> this collection is attached to.</returns>
+        </member>
+        <member name="T:System.IO.IniFile">
+            <summary>
+            Represents a class used to read/write key values to/from INI files.
+            </summary>
+        </member>
+        <member name="P:System.IO.IniFile.FileName">
+            <summary>
+            Gets the filename of the <see cref="T:System.IO.IniFile"/>.
+            </summary>
+        </member>
+        <member name="M:System.IO.IniFile.ReadValue(System.String,System.String)">
+            <summary>
+            Reads a key value from the specified section.
+            </summary>
+            <param name="section">The section to retrieve the key value from.</param>
+            <param name="key">The key value to retrieve.</param>
+            <returns>The key value from the specified section, otherwise returns a blank string.</returns>
+        </member>
+        <member name="M:System.IO.IniFile.WriteValue(System.String,System.String,System.String)">
+            <summary>
+            Writes a key value to the specified section.
+            </summary>
+            <param name="section">The section to write the key value to.</param>
+            <param name="key">The key to write to.</param>
+            <param name="value">The value to write.</param>
+            <returns>True if successful, False if the operation failed.</returns>
+        </member>
+        <member name="M:System.IO.IniFile.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.IO.IniFile"/> class, used to read and write key values to/from INI files.
+            </summary>
+            <param name="path">The path to the INI file.</param>
+        </member>
+        <member name="M:System.IO.BinaryReaderExtensions.Align(System.IO.BinaryReader,System.Int64)">
+            <summary>Aligns the cursor's current position to the specified byte-alignment</summary>
+            <param name="byteAlignment">The byte-alignment to calculate (e.x. 1024)</param>
+            <returns>Cursor position after byte-alignment</returns>
+        </member>
+        <member name="M:System.IO.StreamExtensions.Fill(System.IO.Stream,System.Byte[],System.Int32)">
+            <summary>
+            Fills the stream in its current position using the bytes from a specified buffer.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <param name="count">The number of bytes to fill the stream with.</param>
+        </member>
+        <member name="M:System.IO.StreamExtensions.Fill(System.IO.Stream,System.Int32)">
+            <summary>
+            Fills the length of a stream based on its current position using the value specified.
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.StringExtensions.SplitColumn(System.String,System.Int32)">
+            <summary>
+            Formats a delimited string using the "|" character into a split column with the specified distance.
+            </summary>
+            <param name="format">The delimited string that contains a "|" delimiter which defines where the split column should be.</param>
+            <param name="column">The column where everything after the delimiter should go.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Text.StringBuilderExtensions.AppendFormatEx(System.Text.StringBuilder,System.String,System.Object[])">
+            <summary>
+            Formats and appends a string using the <see cref="P:System.Globalization.CultureInfo.InvariantCulture"/>.
+            </summary>
+            <param name="format">The string to format.</param>
+            <param name="args">The arguments for the formatted string.</param>
+        </member>
+        <member name="M:System.Text.StringBuilderExtensions.AppendLines(System.Text.StringBuilder,System.Int32)">
+            <summary>
+            Appends a definitive amount of new lines to the end of the current <see cref="T:System.Text.StringBuilder"/> object.
+            </summary>
+            <param name="count">Number of lines to be inserted</param>
+        </member>
+        <member name="M:Memory.Align(System.Int32,System.Int32)">
+            <summary>
+            Returns the result of aligning a value to a specified alignment.
+            </summary>
+            <param name="value">The value to align.</param>
+            <param name="alignment">The byte-alignment.</param>
+            <returns>The byte-aligned value; If the alignment is zero, the unmodified value.</returns>
+        </member>
+        <member name="M:Memory.Align(System.Int64,System.Int64)">
+            <summary>
+            Returns the result of aligning a value to a specified alignment.
+            </summary>
+            <param name="value">The value to align.</param>
+            <param name="alignment">The byte-alignment.</param>
+            <returns>The byte-aligned value; If the alignment is zero, the unmodified value.</returns>
+        </member>
+    </members>
+</doc>

@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:Zenda"
         mc:Ignorable="d"
         Style="{StaticResource CustomWindowStyle}"
-        Title="MainWindow" Height="1078" Width="1920" WindowState="Maximized">
+        Title="Zenda" Height="1078" Width="1920" WindowState="Maximized">
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top" Background="#FF151515" BorderThickness="1" BorderBrush="#FF3A3A3A" Name="Menu">
                 <MenuItem Header="_File" Foreground="White" Width="33" Name="MenuFile">
-                    <MenuItem Header="Open" Name="MenuFileOpen"/>
+                    <MenuItem Header="Open" Name="MenuFileOpen" Click="MenuFileOpenClicked"/>
                     <MenuItem Header="Save" Name="MenuFileSave"/>
                     <MenuItem Header="Save As" Name="MenuFileSaveAs"/>
-                    <MenuItem Header="Close" Name="MenuFileClose"/>
+                    <MenuItem Header="Close" Name="MenuFileClose" Click="MenuFileClose_Click" IsEnabled="False"/> <!-- disabled by default, enabled when we open a file -->
                     <MenuItem Header="Exit" Name="MenuFileExit" Click="MenuFileExitClicked"/>
                 </MenuItem>
                 <MenuItem Header="_Edit" Foreground="White" Width="33" Name="MenuEdit">
