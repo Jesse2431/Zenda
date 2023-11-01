@@ -35,7 +35,7 @@ namespace Zenda
                 "Exit Zenda",                            // Title of the MessageBox
                 MessageBoxButton.YesNo,                  // What type of choices the user has
                 MessageBoxImage.Warning                  // Pictogram icon to show
-                );                                              
+            );                                              
 
             if (Result == MessageBoxResult.Yes)
             {
@@ -60,7 +60,7 @@ namespace Zenda
                 "Credits", 
                 MessageBoxButton.OK, 
                 MessageBoxImage.Information
-                );
+            );
         }
     }
 }
