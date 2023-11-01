@@ -68,7 +68,7 @@ namespace Zenda
             OpenFileDialog fileDialog = new OpenFileDialog(); // creates the open file dialog
         	fileDialog.InitialDirectory = Directory.GetCurrentDirectory().ToString(); // set directory to current directory
         	// TODO: set formats Zenda can open
-        	fileDialog.Filter = "Category 1 (*.bin)|*.*|Category 2 (*.sp)|*.*|All files (*.*)|*.*";
+        	fileDialog.Filter = "Category 1 (*.bin)|*.bin|Category 2 (*.sp)|*.sp|All files (*.*)|*.*";
         	fileDialog.Title = "Choose a file to open";
         	fileDialog.RestoreDirectory = true;
         	
@@ -80,7 +80,7 @@ namespace Zenda
         		    onOpenFile(); // call onOpenFile to indicate that the file was open
         		}
         		catch (Exception ex) {
-        			System.Windows.MessageBox.Show("ERROR: \n\t"+ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        			System.Windows.MessageBox.Show("ERROR:\n\n"+ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         		}
         	}
         }
