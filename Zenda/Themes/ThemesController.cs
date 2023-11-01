@@ -7,18 +7,18 @@ namespace FramePFX.Themes {
         public static ThemeType CurrentTheme { get; set; }
 
         private static ResourceDictionary ThemeDictionary {
-            get => Application.Current.Resources.MergedDictionaries[0];
-            set => Application.Current.Resources.MergedDictionaries[0] = value;
+        	get { return Application.Current.Resources.MergedDictionaries[0]; } // fixed error CS1519 in older C# versions
+        	set { Application.Current.Resources.MergedDictionaries[0] = value; } // fixed error CS1519 in older C# versions
         }
 
         private static ResourceDictionary ControlColours {
-            get => Application.Current.Resources.MergedDictionaries[1];
-            set => Application.Current.Resources.MergedDictionaries[1] = value;
+        	get { return Application.Current.Resources.MergedDictionaries[1]; } // fixed error CS1519 in older C# versions
+        	set { Application.Current.Resources.MergedDictionaries[1] = value; } // fixed error CS1519 in older C# versions
         }
 
         private static ResourceDictionary Controls {
-            get => Application.Current.Resources.MergedDictionaries[2];
-            set => Application.Current.Resources.MergedDictionaries[2] = value;
+        	get { return Application.Current.Resources.MergedDictionaries[2]; } // fixed error CS1519 in older C# versions
+        	set { Application.Current.Resources.MergedDictionaries[2] = value; } // fixed error CS1519 in older C# versions
         }
 
         public static void SetTheme(ThemeType theme) {
@@ -28,7 +28,7 @@ namespace FramePFX.Themes {
             }
 
             CurrentTheme = theme;
-            ThemeDictionary = new ResourceDictionary() { Source = new Uri($"Themes/ColourDictionaries/{themeName}.xaml", UriKind.Relative) };
+            ThemeDictionary = new ResourceDictionary() { Source = new Uri(String.Format("Themes/ColourDictionaries/{0}.xaml",themeName), UriKind.Relative) };
             ControlColours = new ResourceDictionary() { Source = new Uri("Themes/ControlColours.xaml", UriKind.Relative) };
             Controls = new ResourceDictionary() { Source = new Uri("Themes/Controls.xaml", UriKind.Relative) };
         }
@@ -38,7 +38,14 @@ namespace FramePFX.Themes {
         }
 
         public static SolidColorBrush GetBrush(string name) {
-            return GetResource(name) is SolidColorBrush brush ? brush : new SolidColorBrush(Colors.White);
+        	// fixed error CS1525 in old C# versions
+        	SolidColorBrush brush = (SolidColorBrush)GetResource(name);
+        	if (brush!=null) {
+               return brush;
+        	}
+        	else {
+        	   return new SolidColorBrush(Colors.White);
+        	}
         }
     }
 }

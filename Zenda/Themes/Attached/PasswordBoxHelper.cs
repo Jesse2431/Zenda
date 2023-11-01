@@ -12,7 +12,8 @@ namespace FramePFX.Themes.Attached {
                 new FrameworkPropertyMetadata(false, PropertyChangedCallback));
 
         private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            if (d is PasswordBox box) {
+        	PasswordBox box = new PasswordBox();
+            if (d.Equals(box)) {
                 box.PasswordChanged -= BoxOnPasswordChanged;
                 if (e.NewValue != null && (bool) e.NewValue) {
                     box.PasswordChanged += BoxOnPasswordChanged;

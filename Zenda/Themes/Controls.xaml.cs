@@ -17,7 +17,7 @@ namespace FramePFX.Themes {
                 MinimizeWind(Window.GetWindow((FrameworkElement) e.Source));
         }
 
-        private static void CloseWind(Window window) => window?.Close();
+		private static void CloseWind(Window window) { window.Close(); } // fixed error CS1519 & CS1520 in older C# versions
 
         private static void MaximizeRestore(Window window) {
             if (window == null)
@@ -35,6 +35,6 @@ namespace FramePFX.Themes {
             }
         }
 
-        private static void MinimizeWind(Window window) => window.WindowState = WindowState.Minimized;
+		private static void MinimizeWind(Window window) { window.WindowState = WindowState.Minimized; } // fixed error CS1519 in older C# versions
     }
 }

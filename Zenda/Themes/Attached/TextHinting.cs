@@ -20,7 +20,7 @@ namespace FramePFX.Themes.Attached {
                 control.SetValue(ShowWhenFocusedProperty, value);
             }
 
-            throw new ArgumentException("Control was not a textbox", nameof(control));
+        	throw new ArgumentException("Control was not a textbox", control.ToString()); // nameof() does not exist in older versions of C#
         }
 
         public static bool GetShowWhenFocused(Control control) {
@@ -28,7 +28,7 @@ namespace FramePFX.Themes.Attached {
                 return (bool) control.GetValue(ShowWhenFocusedProperty);
             }
 
-            throw new ArgumentException("Control was not a textbox", nameof(control));
+            throw new ArgumentException("Control was not a textbox", control.ToString());
         }
     }
 }

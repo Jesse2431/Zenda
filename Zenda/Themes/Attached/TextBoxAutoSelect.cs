@@ -9,17 +9,23 @@ namespace FramePFX.Themes.Attached {
         public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(TextBoxAutoSelect), new PropertyMetadata(false, PropertyChangedCallback));
 
         private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            if (d is Control control) {
+        	Control control = new Control();
+            if (d.Equals(control)) {
                 control.Loaded += Handler;
             }
         }
 
         private static void ControlOnLoaded(object sender, RoutedEventArgs e) {
-            if (sender is Control control) {
+        	Control control = new Control();
+        	if (sender.Equals(control)) {
                 control.Focus();
-                if (control is TextBoxBase textbox) {
+                // I don't get it
+                /*
+                TextBoxBase textbox = new TextBoxBase();
+                if (control.Equals(textbox)) {
                     textbox.SelectAll();
                 }
+                */
 
                 control.Loaded -= Handler;
             }

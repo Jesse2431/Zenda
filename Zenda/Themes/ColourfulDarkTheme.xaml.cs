@@ -20,7 +20,7 @@ namespace REghZyFramework.Themes
                 try { MinimizeWind(Window.GetWindow((FrameworkElement)e.Source)); } catch { }
         }
 
-        public void CloseWind(Window window) => window.Close();
+        public void CloseWind(Window window) { window.Close(); } // fixed error CS1519 in older C# versions
         public void MaximizeRestore(Window window)
         {
             if (window.WindowState == WindowState.Maximized)
@@ -28,6 +28,6 @@ namespace REghZyFramework.Themes
             else if (window.WindowState == WindowState.Normal)
                 window.WindowState = WindowState.Maximized;
         }
-        public void MinimizeWind(Window window) => window.WindowState = WindowState.Minimized;
+        public void MinimizeWind(Window window) { window.WindowState = WindowState.Minimized; } // fixed error CS1519 in older C# versions
     }
 }

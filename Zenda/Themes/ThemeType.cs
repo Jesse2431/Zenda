@@ -19,7 +19,7 @@ namespace FramePFX.Themes {
                 case ThemeType.GreyTheme:       return "GreyTheme";
                 case ThemeType.DarkGreyTheme:   return "DarkGreyTheme";
                 case ThemeType.LightTheme:   return "LightTheme";
-                default: throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                default: throw new ArgumentOutOfRangeException(type.ToString(), type, null); // nameof() does not exist older C# versions
             }
         }
     }
