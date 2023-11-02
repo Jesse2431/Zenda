@@ -31,65 +31,78 @@ namespace Zenda
 		const int Interval = 3000; // 3 seconds
 		const string TextA = "Loading...";
 		const string TextB = "Made by Jesse and BuilderDemo7";
+
 		Timer splashTimer;
+
         private void InitializeComponent()
         {
         	FormBorderStyle = FormBorderStyle.None;
         	ClientSize = new System.Drawing.Size(600,300);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
             this.SuspendLayout();
-        	// splash screen timer
+
+        	// Splash screen timer
         	splashTimer = new Timer(); // creates the timer
         	splashTimer.Interval = Interval; // sets the interval (in miliseconds)
         	splashTimer.Tick += delegate { this.Close(); }; // make the window close when a second is elapsed
         	splashTimer.Start(); // starts the timer
         }
-		public SplashScreen() {
-			InitializeComponent(); // initalize the main (timer, client size and border)
-			
-            // the labels first...
-            // creation
+		public SplashScreen()
+        {
+			InitializeComponent(); // Initalize the main (timer, client size and border)
+
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+
+            // Define labels
             System.Windows.Forms.Label labA = new System.Windows.Forms.Label();
             System.Windows.Forms.Label labB = new System.Windows.Forms.Label();
-            // text
+            // Define labels text
             labA.Text = TextA;
             labB.Text = TextB;
-            // position & size
+            // Define labels position and size
             labA.Location = new System.Drawing.Point(11,280);
             labB.Location = new System.Drawing.Point(461,280);
             labA.Size = new System.Drawing.Size(120,20);
             labB.Size = new System.Drawing.Size(120,20);
-            // font
+            // Define labels font
             labA.Font = new Font("Calibri", 10);
             labB.Font = new Font("Calibri", 10);
-            // color
-            labA.BackColor = System.Drawing.Color.Transparent;
-            labB.BackColor = System.Drawing.Color.Transparent;
-            labA.TransparencyKey = BackColor;
-            labB.TransparencyKey = BackColor;
+            // Define labels colors
+            labA.BackColor = System.Drawing.Color.FromArgb(0, System.Drawing.Color.White);
+            labB.BackColor = System.Drawing.Color.FromArgb(0, System.Drawing.Color.White);
+
             /*
             labA.BackColor = new Color.FromRgb(0,0,0);
             labB.BackColor = new Color.FromRgb(0,0,0);
             labA.ForeColor = new Color.FromRgb(255,255,255);
             labB.ForeColor = new Color.FromRgb(255,255,255);
             */
-            // add the labels
-            this.Controls.Add(labA);
-            this.Controls.Add(labB);
+
+
             
-			// now, the splash screen image...
-            PictureBox spsimg = new PictureBox();            
+			// Now the splash screen image
+            PictureBox spsimg = new PictureBox();
             spsimg.Image = System.Drawing.Image.FromFile("Images/splashscreen.png");
             spsimg.Visible = true;
             spsimg.Location = new System.Drawing.Point(0,0);
             spsimg.SizeMode = PictureBoxSizeMode.StretchImage;
-            // set width and height
+
+            // Set width and height
             spsimg.Width = ClientSize.Width;
             spsimg.Height = ClientSize.Height;
             this.CenterToScreen(); // center the splash screen
-            this.Controls.Add(spsimg); // add the image
-		}
+
+            // Set label parent
+            labA.Parent = spsimg;
+            labB.Parent = spsimg;
+
+            // Add the labels and image
+            this.Controls.Add(labA);
+            this.Controls.Add(spsimg);
+            this.Controls.Add(labB);
+        }
 	}
+
     public partial class MainWindow : Window
     {
     	public const string programTitle = "Zenda"; // used when opening/closing a file
@@ -116,7 +129,7 @@ namespace Zenda
             if (Result == MessageBoxResult.Yes)
             {
             	if (file!=null) { file.Close(); }
-                Environment.Exit(0); // Exits the program basically
+                Environment.Exit(0); // Exits the program
             }
             else if (Result == MessageBoxResult.No)
             {
@@ -139,8 +152,11 @@ namespace Zenda
         }
         
         // little help
-        private void MenuFileOpenClicked(object sender, RoutedEventArgs e) {
+        private void MenuFileOpenClicked(object sender, RoutedEventArgs e)
+        {
         	// TODO: Use between DSCript.Driv3r.GetPath() and DSCript.DriverPL.GetPath() as initial directory if needed
+            // NOTE FROM JESSE: About above TODO, we want to do that? I think it's okay with user manually searching it
+            //                  I mean we could implement it but I dunno man
             OpenFileDialog fileDialog = new OpenFileDialog(); // creates the open file dialog
         	fileDialog.InitialDirectory = Directory.GetCurrentDirectory().ToString(); // set directory to current directory
 
