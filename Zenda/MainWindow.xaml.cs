@@ -131,7 +131,7 @@ namespace Zenda
 		public readonly string Driv3rFF = "Driv3r|*.vvs;*.vvv;*.vgt;*.d3c;*.pcs;*.cpr;*.dam;*.map;*.gfx;*.pmu;*.d3s;*.mec;*.bnk;*.bin";
 		public readonly string DriverPLFF = "Driver: Parallel Lines|*.sp;*.an4;*.d4c;*.gfx;*.pmu;*.mec;*.bnk;*.bin";
 		public readonly string DriverSFFF = "Driver: San Francisco|*.*"; // TODO: Set file filter for Driver: San Francisco
-		public readonly string DriverWiiFF = "Driver Wii|*.d4c;*.feu;*.tpl;*.sp;*.gfx;*.txt;*.d4l"; // TODO: Set file filter for DriverWii
+		public readonly string DriverWiiFF = "Driver Wii|*.d4c;*.feu;*.tpl;*.sp;*.gfx;*.txt;*.d4l;*.bin"; // TODO: Set file filter for DriverWii
     	
         public MainWindow()
         {
