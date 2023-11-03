@@ -135,6 +135,7 @@ namespace Zenda.Driv3r
 	    	buffer[0] = Type;
 	    	buffer[1] = Pad;
 	    	buffer = byteWrite(buffer,BitConverter.GetBytes(Group),2,2);
+	    	return buffer;
 	    }
 	}
 	/// <summary>
