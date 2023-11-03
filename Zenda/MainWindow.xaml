@@ -10,8 +10,13 @@
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top" Background="#FF151515" BorderThickness="1" BorderBrush="#FF3A3A3A" Name="Menu">
-                <MenuItem Header="_File" Foreground="White" Width="33" Name="MenuFile">
-                    <MenuItem Header="Open" Name="MenuFileOpen" Click="MenuFileOpenClicked"/>
+                <MenuItem Header="_File" Foreground="White" Width="33" Name="MenuFile"> 
+                    <MenuItem Header="Open">
+                	     <MenuItem Header="Driv3r" Name="OpenButtonDriv3r" Click="OpenButtonDriv3rClick"/>
+                	     <MenuItem Header="Driver: Parallel Lines" Name="OpenButtonDPL" Click="OpenButtonDPLClick"/>
+                	     <MenuItem Header="Driver: San Francisco" Name="OpenButtonDSF" Click="OpenButtonDSFClick"/>
+                	     <MenuItem Header="Driver Wii" Name="OpenButtonDriverWii" Click="OpenButtonDriverWiiClick"/>
+                	</MenuItem>
                     <MenuItem Header="Save" Name="MenuFileSave"/>
                     <MenuItem Header="Save As" Name="MenuFileSaveAs"/>
                     <MenuItem Header="Close" Name="MenuFileClose" Click="MenuFileClose_Click" IsEnabled="False"/> <!-- disabled by default, enabled when we open a file -->
