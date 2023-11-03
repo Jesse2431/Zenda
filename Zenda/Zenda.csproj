@@ -82,6 +82,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Driv3r\HUD.cs" />
+    <Compile Include="DriverPL\HUD.cs" />
     <Compile Include="Themes\Attached\CornerHelper.cs" />
     <Compile Include="Themes\Attached\MenuHelper.cs" />
     <Compile Include="Themes\Attached\PasswordBoxHelper.cs" />
@@ -197,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Driv3r" />
+    <Folder Include="DriverPL" />
     <Folder Include="References" />
     <Folder Include="Images" />
     <Resource Include="zenda_icon.ico" />

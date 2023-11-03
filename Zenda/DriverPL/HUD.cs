@@ -1,14 +1,13 @@
-﻿// Script for Driv3r HUD files
+﻿// Script for Driver: Parallel Lines HUD files
 // Integrated from Visual Edit by BuilderDemo7 for Zenda
-// "Ah, I had so much fun writing this and listening to Resident Evil 4 soundtrack"
+// "Hey, this is... cool"
 // Written by BuilderDemo7
 
 using System;
 using System.IO;
 using System.Diagnostics;
-using System.Xml;
 
-namespace Zenda.Driv3r
+namespace Zenda.DriverPL
 {
 	public class HUDElement {
 		// Main values
@@ -128,7 +127,7 @@ namespace Zenda.Driv3r
 	    // Function to convert this HUD element to binary
 	    public byte[] ToBinary() {
 	    	// Work in progress
-	    	int HUDElementBufferSize = 48; // just in case the HUD doesn't exist
+	    	int HUDElementBufferSize = 112; // just in case the HUD doesn't exist
 	    	if (_hud!=null) {
 	    	   HUDElementBufferSize = _hud.HUDElementBufferSize; // alright, the HUD exists. get the buffer size already!
 	    	}
@@ -162,7 +161,7 @@ namespace Zenda.Driv3r
 	public class HUD
 	{
 		// For HUD elements
-		public readonly int HUDElementBufferSize = 48;
+		public readonly int HUDElementBufferSize = 112;
 		
 		// For header
 		public ushort Version; // 2 bytes (int16) (no check as DriverPL/HUD.cs probably exists)
@@ -292,9 +291,6 @@ namespace Zenda.Driv3r
 			return buffer;
 			//throw new NotImplementedException(); // placeholder
 			//BitConverter.GetBytes( // A'ight, I'm goin' to sleep, see ya tomorrow
-		}
-		public XmlDocument GetXMLDoc() {
-			throw new NotImplementedException();
 		}
 	}
 }
