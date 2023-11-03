@@ -171,7 +171,8 @@ namespace Zenda
             this.Title = String.Format("{0} - {1}",programTitle,file.Name);
         	// TODO: Decide more files that Zenda can open
             // If the game is Driv3r
-            if (game==gameType.Driv3r) {
+            if (game == gameType.Driv3r)
+            {
             	// By BuilderDemo7 : Open HUD file (W.i.P)
             		try {
             		  switch (extension)
@@ -187,7 +188,8 @@ namespace Zenda
             		  }
             		}
             	    // If Subject has thrown a exception, let's tell the user
-            		catch (Exception ex) {
+            		catch (Exception ex)
+                    {
             		    // Get stack trace for the exception with source file information
                         var st = new StackTrace(ex, true);
                         // Get the top stack frame
@@ -198,6 +200,34 @@ namespace Zenda
             			System.Windows.MessageBox.Show("OPEN ERROR:\n\n"+ex.Message+"\n"+sourcefile+":"+line, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             		}
             	}
+            if (game == gameType.DriverPL)
+            {
+                try
+                {
+                    switch (extension)
+                    {
+                        case ".sp":
+                            // TODO: Differentiate types of SP files from each other
+                            Zenda.DriverPL.VehicleOverride vehicleOverride = new Zenda.DriverPL.VehicleOverride(file);
+                            break;
+                        default:
+                            // Do nothing as this file is not recognized
+                            break;
+                    }
+                }
+                // If Subject has thrown a exception, let's tell the user
+                catch (Exception ex)
+                {
+                    // Get stack trace for the exception with source file information
+                    var st = new StackTrace(ex, true);
+                    // Get the top stack frame
+                    var frame = st.GetFrame(0);
+                    // Get the line number from the stack frame
+                    var sourcefile = frame.GetFileName();
+                    var line = frame.GetFileLineNumber();
+                    System.Windows.MessageBox.Show("OPEN ERROR:\n\n" + ex.Message + "\n" + sourcefile + ":" + line, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
         
         // NOTE: called if a file was closed in the menu 
