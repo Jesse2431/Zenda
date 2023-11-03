@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -31,6 +32,7 @@ namespace Zenda
 		const int Interval = 3000; // 3 seconds
 		const string TextA = "Loading...";
 		const string TextB = "Made by Jesse and BuilderDemo7";
+		System.Drawing.Color BackgroundColor = System.Drawing.Color.FromArgb(0x343353);
 
 		Timer splashTimer;
 
@@ -40,6 +42,8 @@ namespace Zenda
         	ClientSize = new System.Drawing.Size(600,300);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
             this.SuspendLayout();
+            this.BackColor = System.Drawing.Color.DarkSlateBlue;
+            Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location); // Define icon to splash screen (because we don't want that ugly icon)
 
         	// Splash screen timer
         	splashTimer = new Timer(); // creates the timer
@@ -60,16 +64,23 @@ namespace Zenda
             labA.Text = TextA;
             labB.Text = TextB;
             // Define labels position and size
-            labA.Location = new System.Drawing.Point(11,280);
-            labB.Location = new System.Drawing.Point(461,280);
-            labA.Size = new System.Drawing.Size(120,20);
-            labB.Size = new System.Drawing.Size(120,20);
+            labA.Location = new System.Drawing.Point(0,276);
+            labB.Location = new System.Drawing.Point(400,276);
+            //labB.ImageAlign = ContentAlignment.TopRight;
+            //labB.TextAlign = ContentAlignment.TopRight;
+            labA.Size = new System.Drawing.Size(600,40);
+            labB.Size = new System.Drawing.Size(600,40);
             // Define labels font
             labA.Font = new Font("Calibri", 10);
             labB.Font = new Font("Calibri", 10);
             // Define labels colors
-            labA.BackColor = System.Drawing.Color.FromArgb(0, System.Drawing.Color.White);
-            labB.BackColor = System.Drawing.Color.FromArgb(0, System.Drawing.Color.White);
+            // NOTE From BuilderDemo7: I think no one can really notice with this new code now.
+            // Set background color to default Splash Screen background color
+            labA.BackColor = System.Drawing.Color.DarkSlateBlue; //System.Drawing.Color.FromArgb(0, System.Drawing.Color.Black);
+            labB.BackColor = System.Drawing.Color.DarkSlateBlue; //System.Drawing.Color.FromArgb(0, System.Drawing.Color.Black);
+            // and set the text color to white of course
+            labA.ForeColor = System.Drawing.Color.White;
+            labB.ForeColor = System.Drawing.Color.White;
 
             /*
             labA.BackColor = new Color.FromRgb(0,0,0);
@@ -97,9 +108,9 @@ namespace Zenda
             labB.Parent = spsimg;
 
             // Add the labels and image
+            this.Controls.Add(labB);
             this.Controls.Add(labA);
             this.Controls.Add(spsimg);
-            this.Controls.Add(labB);
         }
 	}
 
@@ -108,7 +119,20 @@ namespace Zenda
     	public const string programTitle = "Zenda"; // used when opening/closing a file
     	public const string programTitleNF = "Zenda - No file opened"; // when a file is closed this will be used
     	public FileStream file;
-
+		public enum gameType : int {
+			Driv3r = 0,
+		    DriverPL = 1,
+		    DriverSF = 2,
+		    DriverWii = 3
+		};
+		gameType currentGame;
+        // File filters for each game
+        // NOTE: FF = File Filter
+		public readonly string Driv3rFF = "Driv3r|*.vvs;*.vvv;*.vgt;*.d3c;*.pcs;*.cpr;*.dam;*.map;*.gfx;*.pmu;*.d3s;*.mec;*.bnk;*.bin";
+		public readonly string DriverPLFF = "Driver: Parallel Lines|*.sp;*.an4;*.d4c;*.gfx;*.pmu;*.mec;*.bnk;*.bin";
+		public readonly string DriverSFFF = "Driver: San Francisco|*.*"; // TODO: Set file filter for Driver: San Francisco
+		public readonly string DriverWiiFF = "Driver Wii|*.d4c;*.feu;*.tpl;*.sp;*.gfx;*.txt;*.d4l"; // TODO: Set file filter for DriverWii
+    	
         public MainWindow()
         {
         	SplashScreen spscreen = new SplashScreen();
@@ -138,11 +162,42 @@ namespace Zenda
         }
         
         // NOTE: called if a file was open in the menu
-        // NOTE: string 'game' is which game on what game we will open the file
-        public void onOpenFile(string game="Driv3r")
+        // OLD: string 'game' is which game on what game we will open the file
+        // NEW: enumeration gameType is which game on what game we will open the file
+        public void onOpenFile(gameType game,string path)
         {
+        	currentGame = game;
+        	string extension = System.IO.Path.GetExtension(path); // the extension of the file so we know who we're messing with
             this.Title = String.Format("{0} - {1}",programTitle,file.Name);
-        	// TODO: Decide how it will open the file
+        	// TODO: Decide more files that Zenda can open
+            // If the game is Driv3r
+            if (game==gameType.Driv3r) {
+            	// By BuilderDemo7 : Open HUD file (W.i.P)
+            		try {
+            		  switch (extension)
+            		  {
+            		    // NOTE: To add more extension handlers for Driv3r add 'case: *.extensionName'...
+            		    // ...and add 'break;' in the end of your code
+            		    case ".bin": 
+            		        Zenda.Driv3r.HUD binHUD = new Zenda.Driv3r.HUD(file);
+            		        break;
+            		    default:
+            		        // Do nothing as this file is not recognized
+            		        break;
+            		  }
+            		}
+            	    // If Subject has thrown a exception, let's tell the user
+            		catch (Exception ex) {
+            		    // Get stack trace for the exception with source file information
+                        var st = new StackTrace(ex, true);
+                        // Get the top stack frame
+                        var frame = st.GetFrame(0);
+                        // Get the line number from the stack frame
+                        var sourcefile = frame.GetFileName();
+                        var line = frame.GetFileLineNumber();            			
+            			System.Windows.MessageBox.Show("OPEN ERROR:\n\n"+ex.Message+"\n"+sourcefile+":"+line, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            		}
+            	}
         }
         
         // NOTE: called if a file was closed in the menu 
@@ -151,6 +206,32 @@ namespace Zenda
            // TODO: Decide how it will close the file
         }
         
+        void OpenDialog(string filter,string initialDirectory,string title,gameType game) {
+            OpenFileDialog fileDialog = new OpenFileDialog(); // creates the open file dialog
+            if (initialDirectory!="NO_INITDIR") {
+        	   fileDialog.InitialDirectory = initialDirectory; // set directory to current directory
+            }
+
+        	// TODO: set formats Zenda can open
+        	fileDialog.Filter = filter;
+        	fileDialog.Title = title;
+        	fileDialog.RestoreDirectory = true;
+        	// show open file dialog & check if user has choosed a file
+        	if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+        		try
+                {
+        		    file = new FileStream(fileDialog.FileName,FileMode.Open); // TODO: Decide what FileMode will be used
+        		    MenuFileClose.IsEnabled = true;
+        		    onOpenFile(game,fileDialog.FileName); // call onOpenFile to indicate that the file was open
+        		}
+        		catch (Exception ex)
+                {
+        			System.Windows.MessageBox.Show("ERROR:\n\n"+ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        		}
+        	}        	
+        }
+        
+        /*
         // little help
         private void MenuFileOpenClicked(object sender, RoutedEventArgs e)
         {
@@ -179,7 +260,29 @@ namespace Zenda
         		}
         	}
         }
+        */
+        
+        // Open button on click event handlers for each game
+        private void OpenButtonDriv3rClick(object sender, RoutedEventArgs e) {
+       	    // NOTE From BuilderDemo7: Directory.GetCurrentDirectory().ToString() = placeholder as the registry keys to the game paths still doesn't exist.
+        	OpenDialog(Driv3rFF,Directory.GetCurrentDirectory().ToString(),"Open a file from Driv3r",gameType.Driv3r);
+        }
 
+        private void OpenButtonDPLClick(object sender, RoutedEventArgs e) {
+       	    // NOTE From BuilderDemo7: Directory.GetCurrentDirectory().ToString() = placeholder as the registry keys to the game paths still doesn't exist.
+        	OpenDialog(DriverPLFF,Directory.GetCurrentDirectory().ToString(),"Open a file from Driver: Parallel Lines",gameType.DriverPL);
+        }       
+
+        private void OpenButtonDSFClick(object sender, RoutedEventArgs e) {
+       	    // NOTE From BuilderDemo7: Directory.GetCurrentDirectory().ToString() = placeholder as the registry keys to the game paths still doesn't exist.
+        	OpenDialog(DriverSFFF,Directory.GetCurrentDirectory().ToString(),"Open a file from Driver: San Francisco",gameType.DriverSF);
+        }     
+
+        private void OpenButtonDriverWiiClick(object sender, RoutedEventArgs e) {
+       	    // NOTE From BuilderDemo7: Directory.GetCurrentDirectory().ToString() = placeholder as the registry keys to the game paths still doesn't exist.
+        	OpenDialog(DriverWiiFF,"NO_INITDIR","Open a file from Driver Wii",gameType.DriverWii);
+        }     
+       
         private void MenuHelpCreditsClicked(object sender, RoutedEventArgs e)
         {
         	// NOTE: I added 'System.Windows.' reason: System.Windows.Forms
