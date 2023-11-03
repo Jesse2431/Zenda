@@ -33,7 +33,22 @@ namespace Zenda.Driv3r
         public HUD GetHUD() {
         	return _hud;
         }
-		
+	    // Useful function (took from HUDElement class)
+	    /// <summary>
+	    /// Returns a byte[] join of A with B like table.concat() from Lua
+	    /// </summary>		
+	    private static byte[] byteJoin(byte[] a,byte[] b) {
+	    	byte[] j = new byte[a.Length+b.Length];
+	    	for (int i=0;i<a.Length+b.Length;i++) {
+	    		if (i<b.Length-1) {
+	    			j[i] = a[i];
+	    		}
+	    		else {
+	    			j[i] = b[i-b.Length];
+	    		}
+	    	}
+	    	return j;
+	    }		
 	    // Useful function
 	    /// <summary>
 	    /// Returns a block of byte[size] from given offset from a array like string.sub() from Lua
@@ -45,6 +60,18 @@ namespace Zenda.Driv3r
 			}
 			return ret;
 		}
+	    // Useful function
+	    /// <summary>
+	    /// Overwrites existing bytes from array with bytes
+	    /// </summary>		
+	    private static byte[] byteWrite(byte[] array,byte[] bytes,int off,int size) {
+	    	byte[] a = byteSub(array,0,size-off);
+	    	byte[] m = byteSub(array,off,size);
+	    	byte[] b = byteSub(array,(off+size),size-(off+size));
+	    	byte[] am = byteJoin(a,m);
+	    	byte[] amb = byteJoin(am,b);
+	    	return amb;
+	    }
 	    
 	    private void fromBinary(byte[] buffer) {
 	    	// 2 bytes (byte)
@@ -99,7 +126,33 @@ namespace Zenda.Driv3r
 	    
 	    // Function to convert this HUD element to binary
 	    public byte[] ToBinary() {
-	    	throw new NotImplementedException(); // placeholder
+	    	// Work in progress
+	    	int HUDElementBufferSize = 48; // just in case the HUD doesn't exist
+	    	if (_hud!=null) {
+	    	   HUDElementBufferSize = _hud.HUDElementBufferSize; // alright, the HUD exists. get the buffer size already!
+	    	}
+	    	byte[] buffer = new byte[HUDElementBufferSize];
+	    	// bytes
+	    	buffer[0] = Type;
+	    	buffer[1] = Pad;
+	    	// "Everything is going my way"
+	    	// shorts
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(Group),2,2);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(Input),4,2);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(Id),6,2);
+	    	// floats
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(X),8,4);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(Y),12,4);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(Width),16,4);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(Height),20,4);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(SizeX),24,4);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(SizeY),28,4);
+	    	// the last floats
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(R),32,4);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(G),36,4);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(B),40,4);
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(A),44,4);
+	    	return buffer;
 	    }
 	}
 	/// <summary>
@@ -108,7 +161,7 @@ namespace Zenda.Driv3r
 	public class HUD
 	{
 		// For HUD elements
-		private readonly int HUDElementBufferSize = 48;
+		public readonly int HUDElementBufferSize = 48;
 		
 		// For header
 		public ushort Version; // 2 bytes (int16) (no check as DriverPL/HUD.cs probably exists)
@@ -149,7 +202,19 @@ namespace Zenda.Driv3r
 	    	}
 	    	return j;
 	    }
-
+	    // Useful function
+	    /// <summary>
+	    /// Overwrites existing bytes from array with bytes
+	    /// </summary>		
+	    private static byte[] byteWrite(byte[] array,byte[] bytes,int off,int size) {
+	    	byte[] a = byteSub(array,0,size-off);
+	    	byte[] m = byteSub(array,off,size);
+	    	byte[] b = byteSub(array,(off+size),size-(off+size));
+	    	byte[] am = byteJoin(a,m);
+	    	byte[] amb = byteJoin(am,b);
+	    	return amb;
+	    }
+	    
 	    // Used in Driver: Parallel Lines only...
 		//private int Width;
 		//private int Height;
@@ -207,6 +272,22 @@ namespace Zenda.Driv3r
 		// (a FileStream is required after the buffer is get to save it as a file)
 		public byte[] Save() {
 			byte[] buffer = new byte[64];
+			// shorts
+			buffer = byteWrite(buffer,BitConverter.GetBytes(this.Version),0,2);
+			buffer = byteWrite(buffer,BitConverter.GetBytes(Magic1),2,2);
+			// int32
+			buffer = byteWrite(buffer,BitConverter.GetBytes(Elements.Length),4,4);
+			// long
+			buffer = byteWrite(buffer,BitConverter.GetBytes(Align),8,8);
+			// short
+			buffer = byteWrite(buffer,BitConverter.GetBytes(Magic2),16,8);
+			
+			// The rest is 0s because there is nothing else
+			
+			for (int id=0;id<Elements.Length;id++) {
+				buffer = byteJoin(buffer,Elements[id].ToBinary());
+			}
+			
 			return buffer;
 			//throw new NotImplementedException(); // placeholder
 			//BitConverter.GetBytes( // A'ight, I'm goin' to sleep, see ya tomorrow
