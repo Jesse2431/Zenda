@@ -11,13 +11,67 @@ namespace Zenda.DriverPL
     {
         // Current file
         FileStream file;
+        VehicleOverrideFile vehicleOverride;
+
+        BinaryReader binaryReader;
 
         // Get binary HUD from given file name
         public VehicleOverride(FileStream filed)
         {
             file = filed;
 
+            vehicleOverride.vID = binaryReader.ReadInt32();
+            vehicleOverride.magic = binaryReader.ReadBytes(4);
+            vehicleOverride.version = binaryReader.ReadInt32();
+            vehicleOverride.amount = binaryReader.ReadInt32();
+
+            VehicleOverrideParameterSchemeTypes vehicleOverrideParameterSchemeTypes = new VehicleOverrideParameterSchemeTypes();
+
+            for (int i = 1; i <= vehicleOverride.amount; i++)
+            {
+                VehicleOverrideParameter parameter = new VehicleOverrideParameter();
+
+                UInt16 pID = binaryReader.ReadUInt16();
+
+                binaryReader.ReadBytes(2);
+
+                string typeDefine = null;
+
+                // Look through the dictionary to find if the pID has a float, int or bool typeValue
+                if (vehicleOverrideParameterSchemeTypes.DriverPL.TryGetValue(pID, out string typeInfo))
+                {
+                    typeDefine = typeInfo;
+                }
+
+                byte[] dValue = binaryReader.ReadBytes(4); // Old decimal-based hex value
+                //string cValue = string.Join("", dValue.Select(b => b.ToString("X2"))); // New heximal-based hex value
+
+                parameter.pID = pID;
+                parameter.type = typeDefine;
+                parameter.value = dValue;
+
+                vehicleOverride.vehicleOverrideParameters.Add(parameter);
+            }
+
+            vehicleOverride.terminator = binaryReader.ReadBytes(4);
         }
+
+        public VehicleOverrideFile getVehicleOverride()
+        {
+            return vehicleOverride;
+        }
+    }
+
+    public class VehicleOverrideFile
+    {
+        public int vID;
+        public byte[] magic;
+        public int version;
+        public int amount;
+
+        public List<VehicleOverrideParameter> vehicleOverrideParameters;
+
+        public byte[] terminator;
     }
 
     public class VehicleOverrideParameter
@@ -29,18 +83,18 @@ namespace Zenda.DriverPL
 
     public class VehicleOverrideParameterSchemes
     {
-        Dictionary<UInt16, string> VehicleOverrideParameterSchemeDriverPL = new Dictionary<UInt16, string>
+        public Dictionary<UInt16, string> DriverPL = new Dictionary<UInt16, string>
         {
-            {  0, "Mass" },
-            {  1, "Suspension Force" },
-            {  2, "Suspension Damping" },
-            {  3, "Maximum Suspension Compression" },
-            {  4, "Suspension Normal" },
-            {  5, "Suspension Initial" },
-            {  6, "Friction K0" },
-            {  7, "Friction K1" },
-            {  8, "Friction K2" },
-            {  9, "Flfriction" },
+            {  0,  "Mass" },
+            {  1,  "Suspension Force" },
+            {  2,  "Suspension Damping" },
+            {  3,  "Maximum Suspension Compression" },
+            {  4,  "Suspension Normal" },
+            {  5,  "Suspension Initial" },
+            {  6,  "Friction K0" },
+            {  7,  "Friction K1" },
+            {  8,  "Friction K2" },
+            {  9,  "Flfriction" },
             {  10, "Friction Base" },
             {  11, "Ffast" },
             {  12, "Rfast" },
@@ -325,6 +379,305 @@ namespace Zenda.DriverPL
             { 291, "Exhaust Size" },
             { 292, "Suspension Draw Minimum Clamp" }
         };
+    }
 
+    public class VehicleOverrideParameterSchemeTypes
+    {
+        public Dictionary<UInt16, string> DriverPL = new Dictionary<UInt16, string>
+        {
+            { 0, "float" },
+            { 1, "float" },
+            { 2, "float" },
+            { 3, "float" },
+            { 4, "float" },
+            { 5, "float" },
+            { 6, "float" },
+            { 7, "float" },
+            { 8, "float" },
+            { 9, "float" },
+            { 10, "float" },
+            { 11, "float" },
+            { 12, "float" },
+            { 13, "float" },
+            { 14, "float" },
+            { 15, "float" },
+            { 16, "float" },
+            { 17, "float" },
+            { 18, "float" },
+            { 19, "float" },
+            { 20, "float" },
+            { 21, "float" },
+            { 22, "float" },
+            { 23, "float" },
+            { 24, "float" },
+            { 25, "float" },
+            { 26, "float" },
+            { 27, "float" },
+            { 28, "float" },
+            { 29, "bool" },
+            { 30, "float" },
+            { 31, "float" },
+            { 32, "float" },
+            { 33, "float" },
+            { 34, "float" },
+            { 35, "float" },
+            { 36, "float" },
+            { 37, "float" },
+            { 38, "float" },
+            { 39, "float" },
+            { 40, "float" },
+            { 41, "float" },
+            { 42, "float" },
+            { 43, "float" },
+            { 44, "float" },
+            { 45, "float" },
+            { 46, "float" },
+            { 47, "float" },
+            { 48, "float" },
+            { 49, "float" },
+            { 50, "float" },
+            { 51, "float" },
+            { 52, "float" },
+            { 53, "float" },
+            { 54, "float" },
+            { 55, "float" },
+            { 56, "float" },
+            { 57, "float" },
+            { 58, "float" },
+            { 59, "float" },
+            { 60, "float" },
+            { 61, "float" },
+            { 62, "float" },
+            { 63, "float" },
+            { 64, "float" },
+            { 65, "float" },
+            { 66, "float" },
+            { 67, "float" },
+            { 68, "float" },
+            { 69, "float" },
+            { 70, "float" },
+            { 71, "float" },
+            { 72, "float" },
+            { 73, "float" },
+            { 74, "float" },
+            { 75, "float" },
+            { 76, "float" },
+            { 77, "float" },
+            { 78, "float" },
+            { 79, "float" },
+            { 80, "float" },
+            { 81, "float" },
+            { 82, "float" },
+            { 83, "float" },
+            { 84, "float" },
+            { 85, "float" },
+            { 86, "float" },
+            { 87, "float" },
+            { 88, "float" },
+            { 89, "float" },
+            { 90, "float" },
+            { 91, "float" },
+            { 92, "float" },
+            { 93, "float" },
+            { 94, "float" },
+            { 95, "float" },
+            { 96, "float" },
+            { 97, "float" },
+            { 98, "float" },
+            { 99, "float" },
+            { 100, "float" },
+            { 101, "float" },
+            { 102, "float" },
+            { 103, "float" },
+            { 104, "float" },
+            { 105, "float" },
+            { 106, "float" },
+            { 107, "float" },
+            { 108, "float" },
+            { 109, "float" },
+            { 110, "float" },
+            { 111, "float" },
+            { 112, "float" },
+            { 113, "float" },
+            { 114, "float" },
+            { 115, "float" },
+            { 116, "float" },
+            { 117, "float" },
+            { 118, "float" },
+            { 119, "float" },
+            { 120, "float" },
+            { 121, "float" },
+            { 122, "float" },
+            { 123, "float" },
+            { 124, "float" },
+            { 125, "float" },
+            { 126, "float" },
+            { 127, "float" },
+            { 128, "float" },
+            { 129, "float" },
+            { 130, "float" },
+            { 131, "float" },
+            { 132, "float" },
+            { 133, "float" },
+            { 134, "float" },
+            { 135, "float" },
+            { 136, "float" },
+            { 137, "float" },
+            { 138, "float" },
+            { 139, "float" },
+            { 140, "float" },
+            { 141, "float" },
+            { 142, "int" },
+            { 143, "int" },
+            { 144, "int" },
+            { 145, "int" },
+            { 146, "int" },
+            { 147, "int" },
+            { 148, "int" },
+            { 149, "int" },
+            { 150, "int" },
+            { 151, "int" },
+            { 152, "int" },
+            { 153, "int" },
+            { 154, "int" },
+            { 155, "int" },
+            { 156, "int" },
+            { 157, "int" },
+            { 158, "float" },
+            { 159, "float" },
+            { 160, "float" },
+            { 161, "float" },
+            { 162, "float" },
+            { 163, "float" },
+            { 164, "float" },
+            { 165, "float" },
+            { 166, "float" },
+            { 167, "float" },
+            { 168, "float" },
+            { 169, "float" },
+            { 170, "float" },
+            { 171, "float" },
+            { 172, "float" },
+            { 173, "float" },
+            { 174, "float" },
+            { 175, "float" },
+            { 176, "float" },
+            { 177, "float" },
+            { 178, "float" },
+            { 179, "float" },
+            { 180, "float" },
+            { 181, "float" },
+            { 182, "float" },
+            { 183, "float" },
+            { 184, "float" },
+            { 185, "float" },
+            { 186, "float" },
+            { 187, "float" },
+            { 188, "float" },
+            { 189, "float" },
+            { 190, "float" },
+            { 191, "int" },
+            { 192, "int" },
+            { 193, "int" },
+            { 194, "int" },
+            { 195, "bool" },
+            { 196, "bool" },
+            { 197, "bool" },
+            { 198, "bool" },
+            { 199, "bool" },
+            { 200, "bool" },
+            { 201, "bool" },
+            { 202, "bool" },
+            { 203, "bool" },
+            { 204, "bool" },
+            { 205, "bool" },
+            { 206, "bool" },
+            { 207, "bool" },
+            { 208, "float" },
+            { 209, "bool" },
+            { 210, "bool" },
+            { 211, "bool" },
+            { 212, "bool" },
+            { 213, "bool" },
+            { 214, "bool" },
+            { 215, "bool" },
+            { 216, "bool" },
+            { 217, "bool" },
+            { 218, "bool" },
+            { 219, "bool" },
+            { 220, "bool" },
+            { 221, "float" },
+            { 222, "float" },
+            { 223, "float" },
+            { 224, "float" },
+            { 225, "float" },
+            { 226, "float" },
+            { 227, "float" },
+            { 228, "float" },
+            { 229, "float" },
+            { 230, "float" },
+            { 231, "float" },
+            { 232, "float" },
+            { 233, "float" },
+            { 234, "float" },
+            { 235, "float" },
+            { 236, "float" },
+            { 237, "float" },
+            { 238, "float" },
+            { 239, "bool" },
+            { 240, "bool" },
+            { 241, "bool" },
+            { 242, "bool" },
+            { 243, "bool" },
+            { 244, "bool" },
+            { 245, "float" },
+            { 246, "float" },
+            { 247, "float" },
+            { 248, "float" },
+            { 249, "float" },
+            { 250, "float" },
+            { 251, "float" },
+            { 252, "float" },
+            { 253, "float" },
+            { 254, "float" },
+            { 255, "float" },
+            { 256, "float" },
+            { 257, "float" },
+            { 258, "float" },
+            { 259, "float" },
+            { 260, "float" },
+            { 261, "float" },
+            { 262, "float" },
+            { 263, "float" },
+            { 264, "float" },
+            { 265, "float" },
+            { 266, "float" },
+            { 267, "float" },
+            { 268, "float" },
+            { 269, "float" },
+            { 270, "float" },
+            { 271, "float" },
+            { 272, "float" },
+            { 273, "float" },
+            { 274, "float" },
+            { 275, "float" },
+            { 276, "float" },
+            { 277, "float" },
+            { 278, "float" },
+            { 279, "float" },
+            { 280, "float" },
+            { 281, "float" },
+            { 282, "float" },
+            { 283, "float" },
+            { 284, "float" },
+            { 285, "float" },
+            { 286, "float" },
+            { 287, "float" },
+            { 288, "float" },
+            { 289, "float" },
+            { 290, "float" },
+            { 291, "float" },
+            { 292, "float" }
+        };
     }
 }
