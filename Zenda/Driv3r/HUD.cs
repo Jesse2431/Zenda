@@ -33,7 +33,22 @@ namespace Zenda.Driv3r
         public HUD GetHUD() {
         	return _hud;
         }
-		
+	    // Useful function (took from HUDElement class)
+	    /// <summary>
+	    /// Returns a byte[] join of A with B like table.concat() from Lua
+	    /// </summary>		
+	    private static byte[] byteJoin(byte[] a,byte[] b) {
+	    	byte[] j = new byte[a.Length+b.Length];
+	    	for (int i=0;i<a.Length+b.Length;i++) {
+	    		if (i<b.Length-1) {
+	    			j[i] = a[i];
+	    		}
+	    		else {
+	    			j[i] = b[i-b.Length];
+	    		}
+	    	}
+	    	return j;
+	    }		
 	    // Useful function
 	    /// <summary>
 	    /// Returns a block of byte[size] from given offset from a array like string.sub() from Lua
@@ -45,6 +60,18 @@ namespace Zenda.Driv3r
 			}
 			return ret;
 		}
+	    // Useful function
+	    /// <summary>
+	    /// Overwrites existing bytes from array with bytes
+	    /// </summary>		
+	    private static byte[] byteWrite(byte[] array,byte[] bytes,int off,int size) {
+	    	byte[] a = byteSub(array,0,size-off);
+	    	byte[] m = byteSub(array,off,size);
+	    	byte[] b = byteSub(array,(off+size),size-(off+size));
+	    	byte[] am = byteJoin(a,m);
+	    	byte[] amb = byteJoin(am,b);
+	    	return amb;
+	    }
 	    
 	    private void fromBinary(byte[] buffer) {
 	    	// 2 bytes (byte)
@@ -99,7 +126,15 @@ namespace Zenda.Driv3r
 	    
 	    // Function to convert this HUD element to binary
 	    public byte[] ToBinary() {
-	    	throw new NotImplementedException(); // placeholder
+	    	// Work in progress
+	    	int HUDElementBufferSize = 48; // just in case the HUD doesn't exist
+	    	if (_hud!=null) {
+	    	   HUDElementBufferSize = _hud.HUDElementBufferSize; // alright, the HUD exists. get the buffer size already!
+	    	}
+	    	byte[] buffer = new byte[HUDElementBufferSize];
+	    	buffer[0] = Type;
+	    	buffer[1] = Pad;
+	    	buffer = byteWrite(buffer,BitConverter.GetBytes(Group),2,2);
 	    }
 	}
 	/// <summary>
@@ -108,7 +143,7 @@ namespace Zenda.Driv3r
 	public class HUD
 	{
 		// For HUD elements
-		private readonly int HUDElementBufferSize = 48;
+		public readonly int HUDElementBufferSize = 48;
 		
 		// For header
 		public ushort Version; // 2 bytes (int16) (no check as DriverPL/HUD.cs probably exists)
