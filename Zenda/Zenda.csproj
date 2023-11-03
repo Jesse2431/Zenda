@@ -81,6 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TreeView.xaml.cs">
+      <DependentUpon>TreeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Driv3r\HUD.cs" />
     <Compile Include="DriverPL\VehicleOverride.cs" />
     <Compile Include="Themes\Attached\CornerHelper.cs" />
@@ -105,6 +108,10 @@
     </Compile>
     <Compile Include="Themes\ThemesController.cs" />
     <Compile Include="Themes\ThemeType.cs" />
+    <Page Include="TreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
