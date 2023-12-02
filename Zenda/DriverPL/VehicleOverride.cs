@@ -40,7 +40,8 @@ namespace Zenda.DriverPL
                 string typeDefine = null;
 
                 // Look through the dictionary to find if the pID has a float, int or bool typeValue
-                if (vehicleOverrideParameterSchemeTypes.DriverPL.TryGetValue(pID, out string typeInfo))
+                string typeInfo;
+                if (vehicleOverrideParameterSchemeTypes.DriverPL.TryGetValue(pID, out typeInfo))
                 {
                     typeDefine = typeInfo;
                 }
