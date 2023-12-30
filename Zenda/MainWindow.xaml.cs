@@ -93,7 +93,7 @@ namespace Zenda
             
 			// Now the splash screen image
             PictureBox spsimg = new PictureBox();
-            spsimg.Image = System.Drawing.Image.FromFile("Images/splashscreen.png");
+            spsimg.Image = (System.Drawing.Image)Properties.Resources.splashscreen; //System.Drawing.Image.FromFile("Images/splashscreen.png");
             spsimg.Visible = true;
             spsimg.Location = new System.Drawing.Point(0,0);
             spsimg.SizeMode = PictureBoxSizeMode.StretchImage;
