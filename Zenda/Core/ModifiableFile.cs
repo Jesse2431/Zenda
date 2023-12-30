@@ -50,7 +50,7 @@ namespace Zenda
         /// <summary>
         /// Constructs this modifiable file from a file path.
         /// </summary>
-        /// <param name="fileName">The file to load</param>
+        /// <param name="fileName">The path to the file to load</param>
         public ModifiableFile(string fileName, bool readOnly = true)
         {
             // loads the file
