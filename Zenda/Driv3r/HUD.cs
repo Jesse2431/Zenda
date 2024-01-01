@@ -135,6 +135,6 @@ namespace Zenda.Driv3r
 
         public HUD() { }
         public HUD(Stream stream) : base(stream) { }
-        public HUD(string fileName) : base(fileName) { }
+        public HUD(string fileName, bool readOnly = true) : base(fileName, readOnly) { }
     }
 }
