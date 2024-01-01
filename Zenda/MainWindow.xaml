@@ -17,10 +17,10 @@
                         <MenuItem Header="Driver: San Francisco" Name="OpenButtonDSF" Click="OpenButtonDSFClick"/>
                         <MenuItem Header="Driver Wii" Name="OpenButtonDriverWii" Click="OpenButtonDriverWiiClick"/>
                     </MenuItem>
-                    <MenuItem Header="Save" Name="MenuFileSave"/>
-                    <MenuItem Header="Save As" Name="MenuFileSaveAs"/>
-                    <MenuItem Header="Close" Name="MenuFileClose" Click="MenuFileClose_Click" IsEnabled="False"/>
                     <!-- disabled by default, enabled when we open a file -->
+                    <MenuItem Header="Save" Name="MenuFileSave" IsEnabled="False" Click="Save_Click"/>
+                    <MenuItem Header="Save As" Name="MenuFileSaveAs" Click="SaveAs_Click" IsEnabled="False"/>
+                    <MenuItem Header="Close" Name="MenuFileClose" Click="MenuFileClose_Click" IsEnabled="False"/>
                     <MenuItem Header="Exit" Name="MenuFileExit" Click="MenuFileExitClicked"/>
                 </MenuItem>
                 <MenuItem Header="_Edit" Foreground="White" Width="33" Name="MenuEdit">

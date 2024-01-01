@@ -45,6 +45,29 @@ namespace Zenda
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// Disposes the current modifiable file
+        /// </summary>
+        public void Dispose()
+        {
+            stream.Close();
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Starts a new modifiable file from a inherited class.
+        /// </summary>
+        /// <typeparam name="T">The inherited type to create the modifiable file</typeparam>
+        /// <param name="stream">The stream to load</param>
+        /// <returns></returns>
+        public static ModifiableFile Create<T>(Stream stream)
+            where T : ModifiableFile
+        {
+            ModifiableFile f = Activator.CreateInstance(typeof(ModifiableFile), true) as T;
+            f.SetStream(stream);
+            f.Load();
+            return f;
+        }
 
         public ModifiableFile() { }
         /// <summary>

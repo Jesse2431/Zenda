@@ -82,13 +82,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\ModifiableFile.cs" />
-    <Compile Include="Driv3r\HUD2.cs" />
+    <Compile Include="Driv3r\HUD.cs" />
+    <Compile Include="DriverPL\HUD.cs" />
     <Compile Include="TreeView.xaml.cs">
       <DependentUpon>TreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Driv3r\HUD.cs" />
+    <Compile Include="Driv3r\HUD_old.cs" />
     <Compile Include="DriverPL\VehicleOverride.cs" />
-    <Compile Include="DriverPL\HUD.cs" />
+    <Compile Include="DriverPL\HUD_old.cs" />
     <Compile Include="Themes\Attached\CornerHelper.cs" />
     <Compile Include="Themes\Attached\MenuHelper.cs" />
     <Compile Include="Themes\Attached\PasswordBoxHelper.cs" />
@@ -125,7 +126,7 @@
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Page Include="Themes\ColourDictionaries\DarkGreyTheme.xaml">
       <Generator>MSBuild:Compile</Generator>

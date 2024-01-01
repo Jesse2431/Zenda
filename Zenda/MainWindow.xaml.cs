@@ -118,7 +118,8 @@ namespace Zenda
     {
     	public const string programTitle = "Zenda"; // used when opening/closing a file
     	public const string programTitleNF = "Zenda - No file opened"; // when a file is closed this will be used
-    	public FileStream file;
+        public ModifiableFile File;
+        public string FileName;
 		public enum gameType : int {
 			Driv3r = 0,
 		    DriverPL = 1,
@@ -140,6 +141,22 @@ namespace Zenda
             InitializeComponent();
         }
 
+        public string GetCurrentGameFileFilter()
+        {
+            switch (currentGame)
+            {
+                case gameType.Driv3r:
+                    return Driv3rFF;
+                case gameType.DriverSF:
+                    return DriverSFFF;
+                case gameType.DriverWii:
+                    return DriverWiiFF;
+                case gameType.DriverPL:
+                    return DriverPLFF;
+            }
+            return "All files|*.*";
+        }
+
         private void MenuFileExitClicked(object sender, RoutedEventArgs e)
         {
             var Result = System.Windows.MessageBox.Show(
@@ -152,7 +169,7 @@ namespace Zenda
 
             if (Result == MessageBoxResult.Yes)
             {
-            	if (file!=null) { file.Close(); }
+            	if (File!=null) { File.Dispose(); }
                 Environment.Exit(0); // Exits the program
             }
             else if (Result == MessageBoxResult.No)
@@ -168,7 +185,7 @@ namespace Zenda
         {
         	currentGame = game;
         	string extension = System.IO.Path.GetExtension(path); // the extension of the file so we know who we're messing with
-            this.Title = String.Format("{0} - {1}",programTitle,file.Name);
+            this.Title = String.Format("{0} - {1}",programTitle,path);
         	// TODO: Decide more files that Zenda can open
             // If the game is Driv3r
             if (game == gameType.Driv3r)
@@ -180,7 +197,7 @@ namespace Zenda
             		    // NOTE: To add more extension handlers for Driv3r add 'case: *.extensionName'...
             		    // ...and add 'break;' in the end of your code
             		    case ".bin": 
-            		        Zenda.Driv3r.HUD binHUD = new Zenda.Driv3r.HUD(file);
+            		        File = new Zenda.Driv3r.HUD(path);
             		        break;
             		    default:
             		        // Do nothing as this file is not recognized
@@ -206,9 +223,13 @@ namespace Zenda
                 {
                     switch (extension)
                     {
+                        case ".bin":
+                            File = new Zenda.DriverPL.HUD(path);
+                            break;
                         case ".sp":
                             // TODO: Differentiate types of SP files from each other
-                            Zenda.DriverPL.VehicleOverride vehicleOverride = new Zenda.DriverPL.VehicleOverride(file);
+                            // NOTE FROM BUILDER: VehicleOverride class needs to be inherited from ModifiableFile
+                            //Zenda.DriverPL.VehicleOverride vehicleOverride = new Zenda.DriverPL.VehicleOverride(file);
                             break;
                         default:
                             // Do nothing as this file is not recognized
@@ -250,9 +271,13 @@ namespace Zenda
         	if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
         		try
                 {
-        		    file = new FileStream(fileDialog.FileName,FileMode.Open); // TODO: Decide what FileMode will be used
         		    MenuFileClose.IsEnabled = true;
         		    onOpenFile(game,fileDialog.FileName); // call onOpenFile to indicate that the file was open
+                    FileName = fileDialog.FileName;
+
+                    // enable save as and save button
+                    MenuFileSave.IsEnabled = true;
+                    MenuFileSaveAs.IsEnabled = true;
         		}
         		catch (Exception ex)
                 {
@@ -295,17 +320,17 @@ namespace Zenda
         // Open button on click event handlers for each game
         private void OpenButtonDriv3rClick(object sender, RoutedEventArgs e) {
        	    // NOTE From BuilderDemo7: Directory.GetCurrentDirectory().ToString() = placeholder as the registry keys to the game paths still doesn't exist.
-        	OpenDialog(Driv3rFF,Directory.GetCurrentDirectory().ToString(),"Open a file from Driv3r",gameType.Driv3r);
+        	OpenDialog(Driv3rFF, "NO_INITDIR", "Open a file from Driv3r",gameType.Driv3r);
         }
 
         private void OpenButtonDPLClick(object sender, RoutedEventArgs e) {
        	    // NOTE From BuilderDemo7: Directory.GetCurrentDirectory().ToString() = placeholder as the registry keys to the game paths still doesn't exist.
-        	OpenDialog(DriverPLFF,Directory.GetCurrentDirectory().ToString(),"Open a file from Driver: Parallel Lines",gameType.DriverPL);
+        	OpenDialog(DriverPLFF, "NO_INITDIR", "Open a file from Driver: Parallel Lines",gameType.DriverPL);
         }       
 
         private void OpenButtonDSFClick(object sender, RoutedEventArgs e) {
        	    // NOTE From BuilderDemo7: Directory.GetCurrentDirectory().ToString() = placeholder as the registry keys to the game paths still doesn't exist.
-        	OpenDialog(DriverSFFF,Directory.GetCurrentDirectory().ToString(),"Open a file from Driver: San Francisco",gameType.DriverSF);
+        	OpenDialog(DriverSFFF, "NO_INITDIR", "Open a file from Driver: San Francisco",gameType.DriverSF);
         }     
 
         private void OpenButtonDriverWiiClick(object sender, RoutedEventArgs e) {
@@ -343,12 +368,15 @@ namespace Zenda
             if (Result == MessageBoxResult.Yes)
             {
                 // If a file is open, close it
-                if (file != null)
+                if (File != null)
                 {
                     Title = programTitle;
-                    file.Close();
+                    File.Dispose();
                     MenuFileClose.IsEnabled = false;
                     onCloseFile();
+
+                    MenuFileSave.IsEnabled = false;
+                    MenuFileSaveAs.IsEnabled = false;
                 }
             }
             else if (Result == MessageBoxResult.No)
@@ -356,5 +384,45 @@ namespace Zenda
                 // Do nothing because user decided to not close current file
             }
 		}
+
+        public void SaveAsDialog()
+        {
+            SaveFileDialog dialog = new SaveFileDialog()
+            {
+                Title = "Save As...",
+                Filter = GetCurrentGameFileFilter()
+            };
+
+            if (dialog.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+            {
+                FileStream fileStream = new FileStream(dialog.FileName, FileMode.OpenOrCreate, FileAccess.Write);
+                File.SetStream(fileStream);
+                File.Save();
+                System.Windows.Forms.MessageBox.Show($"Saved successfully to '{dialog.FileName}'!", "Saved with success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void SaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            SaveAsDialog();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            string filenm = System.IO.Path.GetFileName(FileName);
+            string folder = System.IO.Path.GetDirectoryName(FileName);
+
+            string backupFileName = $"{folder}\\{filenm}.bak";
+            if (System.IO.File.Exists(backupFileName))
+            {
+                System.IO.File.Delete(backupFileName);
+            }
+            System.IO.File.Copy(FileName, backupFileName);
+
+            FileStream fileStream = new FileStream(FileName, FileMode.OpenOrCreate, FileAccess.Write);
+            File.SetStream(fileStream);
+            File.Save();
+            System.Windows.Forms.MessageBox.Show($"Saved successfully to '{FileName}'!", "Saved with success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
